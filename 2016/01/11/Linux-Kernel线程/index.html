@@ -4,17 +4,30 @@
   <meta charset="utf-8">
   
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <title>Caydyn Blog</title>
+  <title>Linux Kernel线程 | Caydyn Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Caydyn Blog">
-<meta property="og:url" content="http://http://caydyn-skd.github.io/index.html">
+  <meta name="description" content="0x00 Kernel API使用到的头文件#include &amp;lt;linux/sched.h&amp;gt;
+#include &amp;lt;linux/kthread.h&amp;gt;
+相关函数解释
+创建 Kernel 线程  
+struct task_struct *kthread_create(int (*threadfn)(void *data),void *data,const char *namefm">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux Kernel线程">
+<meta property="og:url" content="http://http://caydyn-skd.github.io/2016/01/11/Linux-Kernel线程/index.html">
 <meta property="og:site_name" content="Caydyn Blog">
-<meta property="og:description">
+<meta property="og:description" content="0x00 Kernel API使用到的头文件#include &amp;lt;linux/sched.h&amp;gt;
+#include &amp;lt;linux/kthread.h&amp;gt;
+相关函数解释
+创建 Kernel 线程  
+struct task_struct *kthread_create(int (*threadfn)(void *data),void *data,const char *namefm">
+<meta property="og:updated_time" content="2016-01-11T13:45:12.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Caydyn Blog">
-<meta name="twitter:description">
+<meta name="twitter:title" content="Linux Kernel线程">
+<meta name="twitter:description" content="0x00 Kernel API使用到的头文件#include &amp;lt;linux/sched.h&amp;gt;
+#include &amp;lt;linux/kthread.h&amp;gt;
+相关函数解释
+创建 Kernel 线程  
+struct task_struct *kthread_create(int (*threadfn)(void *data),void *data,const char *namefm">
   
   
     <link rel="icon" href="/favicon.png">
@@ -156,9 +169,7 @@
 	</div>
 </nav>
 
-      <div class="body-wrap">
-  
-    <article id="post-Linux-Kernel线程" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-Linux-Kernel线程" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
       <a href="/2016/01/11/Linux-Kernel线程/" class="article-date">
@@ -174,12 +185,23 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/01/11/Linux-Kernel线程/">Linux Kernel线程</a>
+    <h1 class="article-title" itemprop="name">
+      Linux Kernel线程
     </h1>
   
 
       </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux-Kernel/">Linux Kernel</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
       
     
     <div class="article-entry" itemprop="articleBody">
@@ -306,20 +328,19 @@ module_exit(test_exit);
       
     </div>
     
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux-Kernel/">Linux Kernel</a></li></ul>
-	</div>
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
   </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2016/01/11/在Github上使用Hexo搭建个人博客/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">在Github上使用Hexo搭建个人博客（MAC环境）</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
   
 </article>
 
@@ -330,132 +351,6 @@ module_exit(test_exit);
 
 
 
-
-  
-    <article id="post-在Github上使用Hexo搭建个人博客" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/01/11/在Github上使用Hexo搭建个人博客/" class="article-date">
-  	<time datetime="2016-01-11T03:35:55.000Z" itemprop="datePublished">2016-01-11</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/01/11/在Github上使用Hexo搭建个人博客/">在Github上使用Hexo搭建个人博客（MAC环境）</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="0x00__u5F00_u59CB_u51C6_u5907"><a href="#0x00__u5F00_u59CB_u51C6_u5907" class="headerlink" title="0x00 开始准备"></a>0x00 开始准备</h2><ul>
-<li><h3 id="github"><a href="#github" class="headerlink" title="github"></a>github</h3><p>  因为需要用Github充当免费的静态服务器，所以这个是必须具备的</p>
-<ul>
-<li><strong>注册 github</strong><br>  注册链接：<a href="https://github.com/join/" target="_blank" rel="external">Join Github</a></li>
-<li><strong>创建 respository</strong><br>  这里需要注意 respository 的名字为 <strong>[github用户名].github.io</strong></li>
-<li><strong>下载使用 github desktop</strong><br>  下载链接：<a href="https://desktop.github.com" target="_blank" rel="external">Github Desktop</a>  </li>
-</ul>
-</li>
-</ul>
-<hr>
-<ul>
-<li><h3 id="Node-js"><a href="#Node-js" class="headerlink" title="Node.js"></a>Node.js</h3><p>  下载链接: <a href="https://nodejs.org/en/download/" target="_blank" rel="external">Node.js Download</a>  </p>
-</li>
-</ul>
-<hr>
-<ul>
-<li><h3 id="Hexo"><a href="#Hexo" class="headerlink" title="Hexo"></a>Hexo</h3><p>  安装Hexo CLI</p>
-<pre><code>npm install hexo-cli -g
-</code></pre></li>
-</ul>
-<h2 id="0x01__u521B_u5EFA_u535A_u5BA2"><a href="#0x01__u521B_u5EFA_u535A_u5BA2" class="headerlink" title="0x01 创建博客"></a>0x01 创建博客</h2><ul>
-<li><h3 id="Hexo-1"><a href="#Hexo-1" class="headerlink" title="Hexo"></a>Hexo</h3><p>  <strong>初始化目录结构</strong></p>
-<pre><code>npm install hexo --save
-hexo init
-</code></pre><p>  执行命令后，生成如下目录结构</p>
-<pre><code>.
-├── _config.yml
-├── package.json
-├── scaffolds
-├── scripts
-├── source
-|      ├── _drafts
-|      └── _posts
-└── themes
-</code></pre><p>  <strong>安装Hexo插件</strong>： </p>
-<pre><code>npm install hexo-generator-index --save
-npm install hexo-generator-archive --save  
-npm install hexo-generator-category --save  
-npm install hexo-generator-tag --save  
-npm install hexo-server --save  
-npm install hexo-deployer-git --save  
-npm install hexo-deployer-heroku --save  
-npm install hexo-deployer-rsync --save  
-npm install hexo-deployer-openshift --save  
-npm install hexo-renderer-marked@0.2 --save  
-npm install hexo-renderer-stylus@0.2 --save  
-npm install hexo-generator-feed@1 --save  
-npm install hexo-generator-sitemap@1 --save
-</code></pre><p>  <strong>测试结果</strong></p>
-<pre><code>hexo server
-</code></pre><p>  在浏览器中访问 <a href="http://localhost:4000" target="_blank" rel="external">http://localhost:4000</a></p>
-<p>  <strong>静态文件</strong></p>
-<pre><code>hexo g
-</code></pre><p>  此时会生成 public 文件夹</p>
-</li>
-<li><h3 id="github-1"><a href="#github-1" class="headerlink" title="github"></a>github</h3><ul>
-<li>使用 github desktop 软件 clone 之前创建的respository</li>
-<li>将之前生成的     public 文件夹中的内容拷贝到 git 文件夹中</li>
-<li>提交所有的文件</li>
-<li>访问 <a href="http://[github用户名].github.io" target="_blank" rel="external">http://[github用户名].github.io</a> 查看创建好的 Blog</li>
-</ul>
-</li>
-<li><h3 id="Hexo-2"><a href="#Hexo-2" class="headerlink" title="Hexo"></a>Hexo</h3><pre><code>hexo n &lt;title&gt; #新建文章
-hexo s #本地发布预览
-hexo g #生成静态文件
-</code></pre></li>
-</ul>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Blog-搭建/">Blog 搭建</a></li></ul>
-	</div>
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-  
 </div>
       <footer id="footer">
   <div class="outer">
@@ -479,8 +374,8 @@ hexo g #生成静态文件
 		fancybox: true,
 		mathjax: true,
 		animate: true,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,

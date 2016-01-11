@@ -3,9 +3,9 @@
   <title><![CDATA[Caydyn Blog]]></title>
   
   <link href="/atom.xml" rel="self"/>
-  <link href="http://yoursite.com/"/>
-  <updated>2016-01-11T05:49:35.000Z</updated>
-  <id>http://yoursite.com/</id>
+  <link href="http://http://caydyn-skd.github.io/"/>
+  <updated>2016-01-11T13:45:12.000Z</updated>
+  <id>http://http://caydyn-skd.github.io/</id>
   
   <author>
     <name><![CDATA[Caydyn]]></name>
@@ -15,11 +15,144 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title><![CDATA[Linux Kernel线程]]></title>
+    <link href="http://http://caydyn-skd.github.io/2016/01/11/Linux-Kernel%E7%BA%BF%E7%A8%8B/"/>
+    <id>http://http://caydyn-skd.github.io/2016/01/11/Linux-Kernel线程/</id>
+    <published>2016-01-11T12:49:44.000Z</published>
+    <updated>2016-01-11T13:45:12.000Z</updated>
+    <content type="html"><![CDATA[<h2 id="0x00_Kernel_API"><a href="#0x00_Kernel_API" class="headerlink" title="0x00 Kernel API"></a><strong>0x00</strong> Kernel API</h2><h3 id="u4F7F_u7528_u5230_u7684_u5934_u6587_u4EF6"><a href="#u4F7F_u7528_u5230_u7684_u5934_u6587_u4EF6" class="headerlink" title="使用到的头文件"></a>使用到的头文件</h3><pre><code>#include &lt;linux/sched.h&gt;
+#include &lt;linux/kthread.h&gt;
+</code></pre><h3 id="u76F8_u5173_u51FD_u6570_u89E3_u91CA"><a href="#u76F8_u5173_u51FD_u6570_u89E3_u91CA" class="headerlink" title="相关函数解释"></a>相关函数解释</h3><ul>
+<li><p>创建 Kernel 线程  </p>
+<pre><code>struct task_struct *kthread_create(int (*threadfn)(void *data),void *data,const char *namefmt, ...);
+</code></pre><p>  <em>参数说明：</em></p>
+<ul>
+<li><strong>threadfn</strong>     需要执行的主要逻辑</li>
+<li><strong>data</strong>        主逻辑传入参数</li>
+<li><strong>namefmt</strong>        线程名称  </li>
+</ul>
+</li>
+</ul>
+<p>创建的线程返回<code>struct task_struct</code>指针，<strong>不会立即运行</strong></p>
+<hr>
+<ul>
+<li><p>创建并且启动 Kernel 线程  </p>
+<pre><code>struct task_struct *kthread_run(int (*threadfn)(void *data),void *data,const char *namefmt, ...);
+</code></pre><p>  <em>参数说明：</em></p>
+<ul>
+<li><strong>threadfn</strong>     需要执行的主要逻辑</li>
+<li><strong>data</strong>        主逻辑传入参数</li>
+<li><strong>namefmt</strong>        线程名称  </li>
+</ul>
+</li>
+</ul>
+<p>创建的线程返回<code>struct task_struct</code>指针，<strong>会立即运行</strong></p>
+<hr>
+<ul>
+<li><p>启动创建的 Kernel 线程</p>
+<pre><code>int wake_up_process(struct task_struct *tsk);
+</code></pre><p>  <em>参数说明：</em></p>
+<ul>
+<li><strong>thread</strong>     通过<code>kthread_create</code>创建线程后返回的结构体</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li><p>线程停止</p>
+<pre><code>int kthread_stop(struct task_struct *thread);  
+</code></pre><p>  <em>参数说明：</em></p>
+<ul>
+<li><strong>thread</strong>     通过<code>kthread_create</code>或者<code>kthread_run</code>创建线程后返回的结构体</li>
+</ul>
+</li>
+<li><p>线程优先级调整</p>
+<pre><code>int sched_setscheduler(struct task_struct *p, int policy, struct sched_param *param);
+</code></pre><p>  <em>参数说明：</em></p>
+<ul>
+<li><strong>p</strong>     通过<code>kthread_create</code>创建线程后返回的结构体</li>
+<li><p><strong>policy</strong> 调度策略类型</p>
+<p>  | 参数               | 含义                 |<br>  | —–             |:—-:            |<br>  | SCHED_OTHER      | 分时调度策略        |<br>  | SCHED_FIFO        | 实时调度策略，先到先服务|<br>  | SCHED_RR        | 实时调度策略，时间片轮转|</p>
+<p>  <strong>关于 SHCED_RR 和 SCHED_FIFO 区别</strong>  </p>
+<ul>
+<li>当采用SHCED_RR策略的进程的时间片用完，系统将重新分配时间片,并置于就绪队列尾</li>
+<li>SCHED_FIFO一旦占用cpu则一直运行,一直运行直到有更高优先级任务到达或自己放弃</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<pre><code>- **param**  调度优先级
+
+        struct sched_param {
+            int sched_priority;
+        };
+        sched_priority //对应区间 ［1， 99］
+</code></pre><h2 id="0x01__u4F7F_u7528_u5B9E_u4F8B"><a href="#0x01__u4F7F_u7528_u5B9E_u4F8B" class="headerlink" title="0x01 使用实例"></a><strong>0x01</strong> 使用实例</h2><ul>
+<li><p>实例说明：  </p>
+<pre><code>创建的内核线程每隔一秒做一次打印
+
+struct task_struct *test_task;  
+
+int test_func(void *arg)
+{
+    uint64_t cur = 0;
+    uint64_t last = 0;
+
+    while(!kthread_should_stop())
+    {
+        cur = get_cycle();
+        if (cur - last &gt; 2410000000)
+        {
+            printk(KERN_INFO &quot;this time: %llu\n&quot;, cur);
+            last = cur;
+        }
+    }
+    return 0;
+}
+
+void run_thread(void)
+{
+    struct sched_param param = {.sched_priority = 1};
+
+    test_task = kthread_create(&amp;test_func, NULL, &quot;MY_test&quot;);
+    kthread_bind(test_task, 0);
+    sched_setscheduler(test_task, SCHED_FIFO, &amp;param);
+    wake_up_process(test_task);
+
+    printk(KERN_INFO&quot;OK, Kernel Thread : %s, Running\n&quot;,                 test_task-&gt;comm);
+}
+
+static int __init test_init(void)
+{
+    run_thread();
+    return 0;
+}
+
+static void __exit test_exit(void)
+{
+    kthread_stop(test_task);
+}
+
+module_init(test_init);
+module_exit(test_exit);
+</code></pre></li>
+</ul>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h2 id="0x00_Kernel_API"><a href="#0x00_Kernel_API" class="headerlink" title="0x00 Kernel API"></a><strong>0x00</strong> Kernel API</h2><h3 ]]>
+    </summary>
+    
+      <category term="Linux Kernel" scheme="http://http://caydyn-skd.github.io/tags/Linux-Kernel/"/>
+    
+  </entry>
+  
+  <entry>
     <title><![CDATA[在Github上使用Hexo搭建个人博客（MAC环境）]]></title>
-    <link href="http://yoursite.com/2016/01/11/%E5%9C%A8Github%E4%B8%8A%E4%BD%BF%E7%94%A8Hexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/"/>
-    <id>http://yoursite.com/2016/01/11/在Github上使用Hexo搭建个人博客/</id>
+    <link href="http://http://caydyn-skd.github.io/2016/01/11/%E5%9C%A8Github%E4%B8%8A%E4%BD%BF%E7%94%A8Hexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/"/>
+    <id>http://http://caydyn-skd.github.io/2016/01/11/在Github上使用Hexo搭建个人博客/</id>
     <published>2016-01-11T03:35:55.000Z</published>
-    <updated>2016-01-11T05:49:35.000Z</updated>
+    <updated>2016-01-11T12:57:19.000Z</updated>
     <content type="html"><![CDATA[<h2 id="0x00__u5F00_u59CB_u51C6_u5907"><a href="#0x00__u5F00_u59CB_u51C6_u5907" class="headerlink" title="0x00 开始准备"></a>0x00 开始准备</h2><ul>
 <li><h3 id="github"><a href="#github" class="headerlink" title="github"></a>github</h3><p>  因为需要用Github充当免费的静态服务器，所以这个是必须具备的</p>
 <ul>
@@ -92,6 +225,8 @@ hexo g #生成静态文件
     <![CDATA[<h2 id="0x00__u5F00_u59CB_u51C6_u5907"><a href="#0x00__u5F00_u59CB_u51C6_u5907" class="headerlink" title="0x00 开始准备"></a>0x00 开始准备</h2><ul>
 ]]>
     </summary>
+    
+      <category term="Blog 搭建" scheme="http://http://caydyn-skd.github.io/tags/Blog-%E6%90%AD%E5%BB%BA/"/>
     
   </entry>
   
