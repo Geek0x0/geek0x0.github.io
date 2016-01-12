@@ -20,7 +20,7 @@ struct task_struct *kthread_create(int (*threadfn)(void *data),void *data,const 
 相关函数解释
 创建 Kernel 线程  
 struct task_struct *kthread_create(int (*threadfn)(void *data),void *data,const char *namefm">
-<meta property="og:updated_time" content="2016-01-11T13:45:12.000Z">
+<meta property="og:updated_time" content="2016-01-12T02:40:33.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux Kernel线程">
 <meta name="twitter:description" content="0x00 Kernel API使用到的头文件#include &amp;lt;linux/sched.h&amp;gt;
@@ -257,18 +257,38 @@ struct task_struct *kthread_create(int (*threadfn)(void *data),void *data,const 
 </code></pre><p>  <em>参数说明：</em></p>
 <ul>
 <li><strong>p</strong>     通过<code>kthread_create</code>创建线程后返回的结构体</li>
-<li><p><strong>policy</strong> 调度策略类型</p>
-<p>  | 参数               | 含义                 |<br>  | —–             |:—-:            |<br>  | SCHED_OTHER      | 分时调度策略        |<br>  | SCHED_FIFO        | 实时调度策略，先到先服务|<br>  | SCHED_RR        | 实时调度策略，时间片轮转|</p>
-<p>  <strong>关于 SHCED_RR 和 SCHED_FIFO 区别</strong>  </p>
-<ul>
-<li>当采用SHCED_RR策略的进程的时间片用完，系统将重新分配时间片,并置于就绪队列尾</li>
-<li>SCHED_FIFO一旦占用cpu则一直运行,一直运行直到有更高优先级任务到达或自己放弃</li>
+<li><strong>policy</strong> 调度策略类型</li>
 </ul>
 </li>
 </ul>
-</li>
-</ul>
-<pre><code>- **param**  调度优先级
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th style="text-align:center">含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SCHED_OTHER</td>
+<td style="text-align:center">分时调度策略</td>
+</tr>
+<tr>
+<td>SCHED_FIFO</td>
+<td style="text-align:center">实时调度策略，先到先服务</td>
+</tr>
+<tr>
+<td>SCHED_RR</td>
+<td style="text-align:center">实时调度策略，时间片轮转</td>
+</tr>
+</tbody>
+</table>
+<pre><code>    **关于 SHCED_RR 和 SCHED_FIFO 区别**  
+    - 当采用SHCED_RR策略的进程的时间片用完，系统将重新分配时间片,并置于就绪队列尾
+    - SCHED_FIFO一旦占用cpu则一直运行,一直运行直到有更高优先级任务到达或自己放弃
+
+
+- **param**  调度优先级
 
         struct sched_param {
             int sched_priority;
