@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://http://caydyn-skd.github.io/"/>
-  <updated>2016-01-12T02:40:33.000Z</updated>
+  <updated>2016-01-12T02:46:15.000Z</updated>
   <id>http://http://caydyn-skd.github.io/</id>
   
   <author>
@@ -19,10 +19,11 @@
     <link href="http://http://caydyn-skd.github.io/2016/01/11/Linux-Kernel%E7%BA%BF%E7%A8%8B/"/>
     <id>http://http://caydyn-skd.github.io/2016/01/11/Linux-Kernel线程/</id>
     <published>2016-01-11T12:49:44.000Z</published>
-    <updated>2016-01-12T02:40:33.000Z</updated>
+    <updated>2016-01-12T02:46:15.000Z</updated>
     <content type="html"><![CDATA[<h2 id="0x00_Kernel_API"><a href="#0x00_Kernel_API" class="headerlink" title="0x00 Kernel API"></a><strong>0x00</strong> Kernel API</h2><h3 id="u4F7F_u7528_u5230_u7684_u5934_u6587_u4EF6"><a href="#u4F7F_u7528_u5230_u7684_u5934_u6587_u4EF6" class="headerlink" title="使用到的头文件"></a>使用到的头文件</h3><pre><code>#include &lt;linux/sched.h&gt;
 #include &lt;linux/kthread.h&gt;
-</code></pre><h3 id="u76F8_u5173_u51FD_u6570_u89E3_u91CA"><a href="#u76F8_u5173_u51FD_u6570_u89E3_u91CA" class="headerlink" title="相关函数解释"></a>相关函数解释</h3><ul>
+</code></pre><a id="more"></a>
+<h3 id="u76F8_u5173_u51FD_u6570_u89E3_u91CA"><a href="#u76F8_u5173_u51FD_u6570_u89E3_u91CA" class="headerlink" title="相关函数解释"></a>相关函数解释</h3><ul>
 <li><p>创建 Kernel 线程  </p>
 <pre><code>struct task_struct *kthread_create(int (*threadfn)(void *data),void *data,const char *namefmt, ...);
 </code></pre><p>  <em>参数说明：</em></p>
@@ -160,7 +161,10 @@ module_exit(test_exit);
 </ul>
 ]]></content>
     <summary type="html">
-    <![CDATA[<h2 id="0x00_Kernel_API"><a href="#0x00_Kernel_API" class="headerlink" title="0x00 Kernel API"></a><strong>0x00</strong> Kernel API</h2><h3 ]]>
+    <![CDATA[<h2 id="0x00_Kernel_API"><a href="#0x00_Kernel_API" class="headerlink" title="0x00 Kernel API"></a><strong>0x00</strong> Kernel API</h2><h3 id="u4F7F_u7528_u5230_u7684_u5934_u6587_u4EF6"><a href="#u4F7F_u7528_u5230_u7684_u5934_u6587_u4EF6" class="headerlink" title="使用到的头文件"></a>使用到的头文件</h3><pre><code>#include &lt;linux/sched.h&gt;
+#include &lt;linux/kthread.h&gt;
+</code></pre>]]>
+    
     </summary>
     
       <category term="Linux Kernel" scheme="http://http://caydyn-skd.github.io/tags/Linux-Kernel/"/>
@@ -172,7 +176,7 @@ module_exit(test_exit);
     <link href="http://http://caydyn-skd.github.io/2016/01/11/%E5%9C%A8Github%E4%B8%8A%E4%BD%BF%E7%94%A8Hexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/"/>
     <id>http://http://caydyn-skd.github.io/2016/01/11/在Github上使用Hexo搭建个人博客/</id>
     <published>2016-01-11T03:35:55.000Z</published>
-    <updated>2016-01-11T12:57:19.000Z</updated>
+    <updated>2016-01-12T02:47:24.000Z</updated>
     <content type="html"><![CDATA[<h2 id="0x00__u5F00_u59CB_u51C6_u5907"><a href="#0x00__u5F00_u59CB_u51C6_u5907" class="headerlink" title="0x00 开始准备"></a>0x00 开始准备</h2><ul>
 <li><h3 id="github"><a href="#github" class="headerlink" title="github"></a>github</h3><p>  因为需要用Github充当免费的静态服务器，所以这个是必须具备的</p>
 <ul>
@@ -183,6 +187,7 @@ module_exit(test_exit);
 </li>
 </ul>
 <hr>
+<a id="more"></a>
 <ul>
 <li><h3 id="Node-js"><a href="#Node-js" class="headerlink" title="Node.js"></a>Node.js</h3><p>  下载链接: <a href="https://nodejs.org/en/download/" target="_blank" rel="external">Node.js Download</a>  </p>
 </li>
@@ -243,7 +248,16 @@ hexo g #生成静态文件
 ]]></content>
     <summary type="html">
     <![CDATA[<h2 id="0x00__u5F00_u59CB_u51C6_u5907"><a href="#0x00__u5F00_u59CB_u51C6_u5907" class="headerlink" title="0x00 开始准备"></a>0x00 开始准备</h2><ul>
-]]>
+<li><h3 id="github"><a href="#github" class="headerlink" title="github"></a>github</h3><p>  因为需要用Github充当免费的静态服务器，所以这个是必须具备的</p>
+<ul>
+<li><strong>注册 github</strong><br>  注册链接：<a href="https://github.com/join/">Join Github</a></li>
+<li><strong>创建 respository</strong><br>  这里需要注意 respository 的名字为 <strong>[github用户名].github.io</strong></li>
+<li><strong>下载使用 github desktop</strong><br>  下载链接：<a href="https://desktop.github.com">Github Desktop</a>  </li>
+</ul>
+</li>
+</ul>
+<hr>]]>
+    
     </summary>
     
       <category term="Blog 搭建" scheme="http://http://caydyn-skd.github.io/tags/Blog-%E6%90%AD%E5%BB%BA/"/>

@@ -7,27 +7,18 @@
   <title>Linux Kernel线程 | Caydyn Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="0x00 Kernel API使用到的头文件#include &amp;lt;linux/sched.h&amp;gt;
-#include &amp;lt;linux/kthread.h&amp;gt;
-相关函数解释
-创建 Kernel 线程  
-struct task_struct *kthread_create(int (*threadfn)(void *data),void *data,const char *namefm">
+#include &amp;lt;linux/kthread.h&amp;gt;">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Linux Kernel线程">
 <meta property="og:url" content="http://http://caydyn-skd.github.io/2016/01/11/Linux-Kernel线程/index.html">
 <meta property="og:site_name" content="Caydyn Blog">
 <meta property="og:description" content="0x00 Kernel API使用到的头文件#include &amp;lt;linux/sched.h&amp;gt;
-#include &amp;lt;linux/kthread.h&amp;gt;
-相关函数解释
-创建 Kernel 线程  
-struct task_struct *kthread_create(int (*threadfn)(void *data),void *data,const char *namefm">
-<meta property="og:updated_time" content="2016-01-12T02:40:33.000Z">
+#include &amp;lt;linux/kthread.h&amp;gt;">
+<meta property="og:updated_time" content="2016-01-12T02:46:15.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux Kernel线程">
 <meta name="twitter:description" content="0x00 Kernel API使用到的头文件#include &amp;lt;linux/sched.h&amp;gt;
-#include &amp;lt;linux/kthread.h&amp;gt;
-相关函数解释
-创建 Kernel 线程  
-struct task_struct *kthread_create(int (*threadfn)(void *data),void *data,const char *namefm">
+#include &amp;lt;linux/kthread.h&amp;gt;">
   
   
     <link rel="icon" href="/favicon.png">
@@ -208,7 +199,8 @@ struct task_struct *kthread_create(int (*threadfn)(void *data),void *data,const 
       
         <h2 id="0x00_Kernel_API"><a href="#0x00_Kernel_API" class="headerlink" title="0x00 Kernel API"></a><strong>0x00</strong> Kernel API</h2><h3 id="u4F7F_u7528_u5230_u7684_u5934_u6587_u4EF6"><a href="#u4F7F_u7528_u5230_u7684_u5934_u6587_u4EF6" class="headerlink" title="使用到的头文件"></a>使用到的头文件</h3><pre><code>#include &lt;linux/sched.h&gt;
 #include &lt;linux/kthread.h&gt;
-</code></pre><h3 id="u76F8_u5173_u51FD_u6570_u89E3_u91CA"><a href="#u76F8_u5173_u51FD_u6570_u89E3_u91CA" class="headerlink" title="相关函数解释"></a>相关函数解释</h3><ul>
+</code></pre><a id="more"></a>
+<h3 id="u76F8_u5173_u51FD_u6570_u89E3_u91CA"><a href="#u76F8_u5173_u51FD_u6570_u89E3_u91CA" class="headerlink" title="相关函数解释"></a>相关函数解释</h3><ul>
 <li><p>创建 Kernel 线程  </p>
 <pre><code>struct task_struct *kthread_create(int (*threadfn)(void *data),void *data,const char *namefmt, ...);
 </code></pre><p>  <em>参数说明：</em></p>
