@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://http://caydyn-skd.github.io/"/>
-  <updated>2016-01-12T02:46:15.000Z</updated>
+  <updated>2016-01-18T08:39:25.000Z</updated>
   <id>http://http://caydyn-skd.github.io/</id>
   
   <author>
@@ -19,7 +19,7 @@
     <link href="http://http://caydyn-skd.github.io/2016/01/11/Linux-Kernel%E7%BA%BF%E7%A8%8B/"/>
     <id>http://http://caydyn-skd.github.io/2016/01/11/Linux-Kernel线程/</id>
     <published>2016-01-11T12:49:44.000Z</published>
-    <updated>2016-01-12T02:46:15.000Z</updated>
+    <updated>2016-01-18T08:39:25.000Z</updated>
     <content type="html"><![CDATA[<h2 id="0x00_Kernel_API"><a href="#0x00_Kernel_API" class="headerlink" title="0x00 Kernel API"></a><strong>0x00</strong> Kernel API</h2><h3 id="u4F7F_u7528_u5230_u7684_u5934_u6587_u4EF6"><a href="#u4F7F_u7528_u5230_u7684_u5934_u6587_u4EF6" class="headerlink" title="使用到的头文件"></a>使用到的头文件</h3><pre><code>#include &lt;linux/sched.h&gt;
 #include &lt;linux/kthread.h&gt;
 </code></pre><a id="more"></a>
@@ -73,7 +73,10 @@
 <ul>
 <li><strong>p</strong>     通过<code>kthread_create</code>创建线程后返回的结构体</li>
 <li><strong>policy</strong> 调度策略类型</li>
+<li><strong>param</strong>  调度优先级</li>
 </ul>
+</li>
+<li><p><em>关于policy参数</em></p>
 </li>
 </ul>
 <table>
@@ -98,18 +101,20 @@
 </tr>
 </tbody>
 </table>
-<pre><code>    **关于 SHCED_RR 和 SCHED_FIFO 区别**  
-    - 当采用SHCED_RR策略的进程的时间片用完，系统将重新分配时间片,并置于就绪队列尾
-    - SCHED_FIFO一旦占用cpu则一直运行,一直运行直到有更高优先级任务到达或自己放弃
-
-
-- **param**  调度优先级
-
-        struct sched_param {
-            int sched_priority;
-        };
-        sched_priority //对应区间 ［1， 99］
-</code></pre><h2 id="0x01__u4F7F_u7528_u5B9E_u4F8B"><a href="#0x01__u4F7F_u7528_u5B9E_u4F8B" class="headerlink" title="0x01 使用实例"></a><strong>0x01</strong> 使用实例</h2><ul>
+<p><em>关于 SHCED_RR 和 SCHED_FIFO 区别</em>  </p>
+<ul>
+<li>当采用SHCED_RR策略的进程的时间片用完，系统将重新分配时间片,并置于就绪队列尾  </li>
+<li>SCHED_FIFO一旦占用cpu则一直运行,一直运行直到有更高优先级任务到达或自己放弃</li>
+</ul>
+<ul>
+<li><p><em>关于param参数</em></p>
+<pre><code>struct sched_param {
+    int sched_priority;
+};
+sched_priority //对应区间 ［1， 99］
+</code></pre></li>
+</ul>
+<h2 id="0x01__u4F7F_u7528_u5B9E_u4F8B"><a href="#0x01__u4F7F_u7528_u5B9E_u4F8B" class="headerlink" title="0x01 使用实例"></a><strong>0x01</strong> 使用实例</h2><ul>
 <li><p>实例说明：  </p>
 <pre><code>创建的内核线程每隔一秒做一次打印
 
@@ -141,7 +146,7 @@ void run_thread(void)
     sched_setscheduler(test_task, SCHED_FIFO, &amp;param);
     wake_up_process(test_task);
 
-    printk(KERN_INFO&quot;OK, Kernel Thread : %s, Running\n&quot;,                 test_task-&gt;comm);
+    printk(KERN_INFO&quot;OK, Kernel Thread : %s, Running\n&quot;, test_task-&gt;comm);
 }
 
 static int __init test_init(void)
