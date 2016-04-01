@@ -98,7 +98,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/Blog-搭建/" style="font-size: 10px;">Blog 搭建</a> <a href="/tags/Linux-Kernel/" style="font-size: 10px;">Linux Kernel</a>
+						<a href="/tags/Blog-搭建/" style="font-size: 10px;">Blog 搭建</a> <a href="/tags/Linux-Kernel/" style="font-size: 10px;">Linux Kernel</a> <a href="/tags/SCA/" style="font-size: 10px;">SCA</a> <a href="/tags/wireless/" style="font-size: 10px;">wireless</a>
 					</div>
 				</section>
 				
@@ -157,6 +157,162 @@
 </nav>
 
       <div class="body-wrap">
+  
+    <article id="post-Wireshark-2-0-1-源码分析" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/04/01/Wireshark-2-0-1-源码分析/" class="article-date">
+  	<time datetime="2016-04-01T03:38:17.000Z" itemprop="datePublished">2016-04-01</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/04/01/Wireshark-2-0-1-源码分析/">Wireshark-2.0.1 源码分析</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="u672C_u6587_u7EAF_u5E72_u8D27_u4EC5_u4E3A_u53CB_u7F16_u7801_u80FD_u529B_u670B_u53CB_u8BBE_u8BA1"><a href="#u672C_u6587_u7EAF_u5E72_u8D27_u4EC5_u4E3A_u53CB_u7F16_u7801_u80FD_u529B_u670B_u53CB_u8BBE_u8BA1" class="headerlink" title="本文纯干货仅为友编码能力朋友设计"></a>本文纯干货仅为友编码能力朋友设计</h3><h4 id="0x1-__u5173_u4E8ETshark_u6E90_u7801_u5206_u6790"><a href="#0x1-__u5173_u4E8ETshark_u6E90_u7801_u5206_u6790" class="headerlink" title="0x1. 关于Tshark源码分析"></a>0x1. 关于Tshark源码分析</h4><h5 id="1-_open_pcap_file"><a href="#1-_open_pcap_file" class="headerlink" title="1. open pcap file"></a>1. open pcap file</h5><pre><code>-&gt; cf_status_t cf_open(capture_file *, const char *, unsigned int, gboolean, int *);                tshark.c
+    -&gt; wtap * wtap_open_offline(const char *, unsigned int, int *, char **, gboolean);                wiretap/file_access.c
+        -&gt; void init_open_routines();                                                                wiretap/file_access.c
+            -&gt; wtap_open_return_val libpcap_open(wtap *, int *, gchar **);                            wiretap/libpcap.c
+                {
+                    ……
+                    wth-&gt;subtype_read = libpcap_read;
+                    wth-&gt;subtype_seek_read = libpcap_seek_read;
+                    ……
+                }
+</code></pre><h5 id="2-_read_pcpa_file__28read_buffer_3A_wtap-_26gt_3Bframe_buffer_29"><a href="#2-_read_pcpa_file__28read_buffer_3A_wtap-_26gt_3Bframe_buffer_29" class="headerlink" title="2. read pcpa file (read buffer: wtap-&gt;frame_buffer)"></a>2. read pcpa file (read buffer: wtap-&gt;frame_buffer)</h5><pre><code>-&gt; gboolean wtap_read(wtap *, int *, gchar **, gint64 *);                                            wiretap/wtap.c
+    -&gt; static gboolean libpcap_read(wtap *, int *, gchar **, gint64 *);                                wiretap/libpcap.c
+
+        -&gt; static gboolean libpcap_read_packet(wtap *, FILE_T , struct wtap_pkthdr *,
+            Buffer *, int *, gchar **);                                                                wiretap/libpcap.c
+                -&gt; static int libpcap_read_header(wtap *, FILE_T, int *, gchar **,
+                    struct pcaprec_ss990915_hdr *);                                                    wiretap/libpcap.c
+                    -&gt; gboolean wtap_read_bytes_or_eof(FILE_T, void *, unsigned int,
+                        int *, gchar **);                                                            wiretap/wtap.c
+                        -&gt; int file_read(void *, unsigned int, FILE_T);                                wiretap/file_wrappers.c
+
+        -&gt; gboolean wtap_read_packet_bytes(FILE_T, Buffer *, guint, int *, gchar **);                wiretap//wtap.c
+            -&gt;     void ws_buffer_assure_space(Buffer*, gsize);                                        wsutil/buffer.c
+                guint8 * ws_buffer_start_ptr(Buffer* buffer);                                        wsutil/buffer.c
+                    -&gt; gboolean wtap_read_bytes(FILE_T, void *, unsigned int, int *, gchar **)        wiretap//wtap.c
+                        -&gt; int file_read(void *, unsigned int, FILE_T);                                wiretap/file_wrappers.c
+</code></pre><h5 id="3-_analysis_packet"><a href="#3-_analysis_packet" class="headerlink" title="3. analysis packet"></a>3. analysis packet</h5><pre><code>-&gt; guint8 *wtap_buf_ptr(wtap *);                                                                    wiretap/wtap.c
+-&gt; static gboolean process_packet(capture_file *, epan_dissect_t *, gint64, struct wtap_pkthdr *,
+    const guchar *, guint);                                                                            tshark.c
+</code></pre>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SCA/">SCA</a></li></ul>
+	</div>
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-WLAN相关名词" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/02/22/WLAN相关名词/" class="article-date">
+  	<time datetime="2016-02-22T07:41:36.000Z" itemprop="datePublished">2016-02-22</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/02/22/WLAN相关名词/">WLAN相关名词</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h5 id="1-_MSDU__28MAC_u670D_u52A1_u6570_u636E_u5355_u5143_29"><a href="#1-_MSDU__28MAC_u670D_u52A1_u6570_u636E_u5355_u5143_29" class="headerlink" title="1. MSDU (MAC服务数据单元)"></a>1. MSDU (MAC服务数据单元)</h5><ul>
+<li>MPDU就是指的经过802.11协议封装过的数据帧。</li>
+<li>MSDU是从位于一个协议栈的媒体访问控制（MAC）子层上面的逻辑链路控制（LLC）子层接收到的服务数据单元。LLC和MAC子层被统称为该DLL。</li>
+<li>MSDU是MAC层服务数据单元，表示MAC层载荷；当MAC层协议数据单元(MPDU)被发送到物理层(PHY)时，它便成为了物理层服务数据单元(PSDU)。</li>
+</ul>
+<h5 id="2-_MPDU__28MAC_u534F_u8BAE_u6570_u636E_u5355_u5143_29"><a href="#2-_MPDU__28MAC_u534F_u8BAE_u6570_u636E_u5355_u5143_29" class="headerlink" title="2. MPDU (MAC协议数据单元)"></a>2. MPDU (MAC协议数据单元)</h5><ul>
+<li>MSDU经过添加完整性校验MIC、分帧、添加IV、加密、添加MAC头部后，成为MPDU（MAC Protocol Data Unit，MAC协议数据单元）.</li>
+</ul>
+<h5 id="3-_A-MSDU__28_u805A_u5408MAC_u670D_u52A1_u6570_u636E_u5355_u5143_29"><a href="#3-_A-MSDU__28_u805A_u5408MAC_u670D_u52A1_u6570_u636E_u5355_u5143_29" class="headerlink" title="3. A-MSDU (聚合MAC服务数据单元)"></a>3. A-MSDU (聚合MAC服务数据单元)</h5><ul>
+<li>将若干个A-MSDU Subframe按照802.11协议格式，封装成一个MPDU报文单元</li>
+</ul>
+<h5 id="4-_A-MPDU__28_u805A_u5408MAC_u534F_u8BAE_u6570_u636E_u5355_u5143_29"><a href="#4-_A-MPDU__28_u805A_u5408MAC_u534F_u8BAE_u6570_u636E_u5355_u5143_29" class="headerlink" title="4. A-MPDU (聚合MAC协议数据单元)"></a>4. A-MPDU (聚合MAC协议数据单元)</h5><ul>
+<li>为减小开销，802.11n提出的帧汇聚技术，可把两个以上帧组成一个帧传输。</li>
+<li>通过将多个MPDU聚合为一个物理层报文，只需要进行一次新到竞争或退避，既可以完成<strong>N</strong>个<strong>MPDU</strong>的同时发送，从而减少了发送<strong>N－1</strong>个<strong>MPDU</strong>报文所带来的信道资源消耗。</li>
+</ul>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/wireless/">wireless</a></li></ul>
+	</div>
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
   
     <article id="post-Linux-Kernel线程" class="article article-type-post" itemscope itemprop="blogPost">
   

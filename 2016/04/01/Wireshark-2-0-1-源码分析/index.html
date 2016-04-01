@@ -4,33 +4,21 @@
   <meta charset="utf-8">
   
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <title>在Github上使用Hexo搭建个人博客（MAC环境） | Caydyn Blog</title>
+  <title>Wireshark-2.0.1 源码分析 | Caydyn Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="0x00 开始准备
-github  因为需要用Github充当免费的静态服务器，所以这个是必须具备的
-
-注册 github  注册链接：Join Github
-创建 respository  这里需要注意 respository 的名字为 [github用户名].github.io
-下载使用 github desktop  下载链接：Github Desktop">
+  <meta name="description" content="本文纯干货仅为友编码能力朋友设计0x1. 关于Tshark源码分析1. open pcap file-&amp;gt; cf_status_t cf_open(capture_file *, const char *, unsigned int, gboolean, int *);                tshark.c
+    -&amp;gt; wtap * wtap_open_offline(con">
 <meta property="og:type" content="article">
-<meta property="og:title" content="在Github上使用Hexo搭建个人博客（MAC环境）">
-<meta property="og:url" content="http://http://caydyn-skd.github.io/2016/01/11/在Github上使用Hexo搭建个人博客/index.html">
+<meta property="og:title" content="Wireshark-2.0.1 源码分析">
+<meta property="og:url" content="http://http://caydyn-skd.github.io/2016/04/01/Wireshark-2-0-1-源码分析/index.html">
 <meta property="og:site_name" content="Caydyn Blog">
-<meta property="og:description" content="0x00 开始准备
-github  因为需要用Github充当免费的静态服务器，所以这个是必须具备的
-
-注册 github  注册链接：Join Github
-创建 respository  这里需要注意 respository 的名字为 [github用户名].github.io
-下载使用 github desktop  下载链接：Github Desktop">
-<meta property="og:updated_time" content="2016-01-12T02:52:25.000Z">
+<meta property="og:description" content="本文纯干货仅为友编码能力朋友设计0x1. 关于Tshark源码分析1. open pcap file-&amp;gt; cf_status_t cf_open(capture_file *, const char *, unsigned int, gboolean, int *);                tshark.c
+    -&amp;gt; wtap * wtap_open_offline(con">
+<meta property="og:updated_time" content="2016-04-01T03:41:46.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="在Github上使用Hexo搭建个人博客（MAC环境）">
-<meta name="twitter:description" content="0x00 开始准备
-github  因为需要用Github充当免费的静态服务器，所以这个是必须具备的
-
-注册 github  注册链接：Join Github
-创建 respository  这里需要注意 respository 的名字为 [github用户名].github.io
-下载使用 github desktop  下载链接：Github Desktop">
+<meta name="twitter:title" content="Wireshark-2.0.1 源码分析">
+<meta name="twitter:description" content="本文纯干货仅为友编码能力朋友设计0x1. 关于Tshark源码分析1. open pcap file-&amp;gt; cf_status_t cf_open(capture_file *, const char *, unsigned int, gboolean, int *);                tshark.c
+    -&amp;gt; wtap * wtap_open_offline(con">
   
   
     <link rel="icon" href="/favicon.png">
@@ -172,11 +160,11 @@ github  因为需要用Github充当免费的静态服务器，所以这个是必
 	</div>
 </nav>
 
-      <div class="body-wrap"><article id="post-在Github上使用Hexo搭建个人博客" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-Wireshark-2-0-1-源码分析" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2016/01/11/在Github上使用Hexo搭建个人博客/" class="article-date">
-  	<time datetime="2016-01-11T03:35:55.000Z" itemprop="datePublished">2016-01-11</time>
+      <a href="/2016/04/01/Wireshark-2-0-1-源码分析/" class="article-date">
+  	<time datetime="2016-04-01T03:38:17.000Z" itemprop="datePublished">2016-04-01</time>
 </a>
     </div>
   
@@ -189,7 +177,7 @@ github  因为需要用Github充当免费的静态服务器，所以这个是必
         
   
     <h1 class="article-title" itemprop="name">
-      在Github上使用Hexo搭建个人博客（MAC环境）
+      Wireshark-2.0.1 源码分析
     </h1>
   
 
@@ -198,7 +186,7 @@ github  因为需要用Github充当免费的静态服务器，所以这个是必
       <div class="article-info article-info-post">
         
 	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Blog-搭建/">Blog 搭建</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SCA/">SCA</a></li></ul>
 	</div>
 
         
@@ -209,75 +197,36 @@ github  因为需要用Github充当免费的静态服务器，所以这个是必
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="0x00__u5F00_u59CB_u51C6_u5907"><a href="#0x00__u5F00_u59CB_u51C6_u5907" class="headerlink" title="0x00 开始准备"></a><strong>0x00</strong> 开始准备</h2><ul>
-<li><h3 id="github"><a href="#github" class="headerlink" title="github"></a>github</h3><p>  因为需要用Github充当免费的静态服务器，所以这个是必须具备的</p>
-<ul>
-<li><strong>注册 github</strong><br>  注册链接：<a href="https://github.com/join/" target="_blank" rel="external">Join Github</a></li>
-<li><strong>创建 respository</strong><br>  这里需要注意 respository 的名字为 <strong>[github用户名].github.io</strong></li>
-<li><strong>下载使用 github desktop</strong><br>  下载链接：<a href="https://desktop.github.com" target="_blank" rel="external">Github Desktop</a>  </li>
-</ul>
-</li>
-</ul>
-<hr>
-<a id="more"></a>
-<ul>
-<li><h3 id="Node-js"><a href="#Node-js" class="headerlink" title="Node.js"></a>Node.js</h3><p>  下载链接: <a href="https://nodejs.org/en/download/" target="_blank" rel="external">Node.js Download</a>  </p>
-</li>
-</ul>
-<hr>
-<ul>
-<li><h3 id="Hexo"><a href="#Hexo" class="headerlink" title="Hexo"></a>Hexo</h3><p>  安装Hexo CLI</p>
-<pre><code>npm install hexo-cli -g
-</code></pre></li>
-</ul>
-<h2 id="0x01__u521B_u5EFA_u535A_u5BA2"><a href="#0x01__u521B_u5EFA_u535A_u5BA2" class="headerlink" title="0x01 创建博客"></a><strong>0x01</strong> 创建博客</h2><ul>
-<li><h3 id="Hexo-1"><a href="#Hexo-1" class="headerlink" title="Hexo"></a>Hexo</h3><p>  <strong>初始化目录结构</strong></p>
-<pre><code>npm install hexo --save
-hexo init
-</code></pre><p>  执行命令后，生成如下目录结构</p>
-<pre><code>.
-├── _config.yml
-├── package.json
-├── scaffolds
-├── scripts
-├── source
-|      ├── _drafts
-|      └── _posts
-└── themes
-</code></pre><p>  <strong>安装Hexo插件</strong>： </p>
-<pre><code>npm install hexo-generator-index --save
-npm install hexo-generator-archive --save  
-npm install hexo-generator-category --save  
-npm install hexo-generator-tag --save  
-npm install hexo-server --save  
-npm install hexo-deployer-git --save  
-npm install hexo-deployer-heroku --save  
-npm install hexo-deployer-rsync --save  
-npm install hexo-deployer-openshift --save  
-npm install hexo-renderer-marked@0.2 --save  
-npm install hexo-renderer-stylus@0.2 --save  
-npm install hexo-generator-feed@1 --save  
-npm install hexo-generator-sitemap@1 --save
-</code></pre><p>  <strong>测试结果</strong></p>
-<pre><code>hexo server
-</code></pre><p>  在浏览器中访问 <a href="http://localhost:4000" target="_blank" rel="external">http://localhost:4000</a></p>
-<p>  <strong>静态文件</strong></p>
-<pre><code>hexo g
-</code></pre><p>  此时会生成 public 文件夹</p>
-</li>
-<li><h3 id="github-1"><a href="#github-1" class="headerlink" title="github"></a>github</h3><ul>
-<li>使用 github desktop 软件 clone 之前创建的respository</li>
-<li>将之前生成的     public 文件夹中的内容拷贝到 git 文件夹中</li>
-<li>提交所有的文件</li>
-<li>访问 <a href="http://[github用户名].github.io" target="_blank" rel="external">http://[github用户名].github.io</a> 查看创建好的 Blog</li>
-</ul>
-</li>
-<li><h3 id="Hexo-2"><a href="#Hexo-2" class="headerlink" title="Hexo"></a>Hexo</h3><pre><code>hexo n &lt;title&gt; #新建文章
-hexo s #本地发布预览
-hexo g #生成静态文件
-</code></pre></li>
-</ul>
+        <h3 id="u672C_u6587_u7EAF_u5E72_u8D27_u4EC5_u4E3A_u53CB_u7F16_u7801_u80FD_u529B_u670B_u53CB_u8BBE_u8BA1"><a href="#u672C_u6587_u7EAF_u5E72_u8D27_u4EC5_u4E3A_u53CB_u7F16_u7801_u80FD_u529B_u670B_u53CB_u8BBE_u8BA1" class="headerlink" title="本文纯干货仅为友编码能力朋友设计"></a>本文纯干货仅为友编码能力朋友设计</h3><h4 id="0x1-__u5173_u4E8ETshark_u6E90_u7801_u5206_u6790"><a href="#0x1-__u5173_u4E8ETshark_u6E90_u7801_u5206_u6790" class="headerlink" title="0x1. 关于Tshark源码分析"></a>0x1. 关于Tshark源码分析</h4><h5 id="1-_open_pcap_file"><a href="#1-_open_pcap_file" class="headerlink" title="1. open pcap file"></a>1. open pcap file</h5><pre><code>-&gt; cf_status_t cf_open(capture_file *, const char *, unsigned int, gboolean, int *);                tshark.c
+    -&gt; wtap * wtap_open_offline(const char *, unsigned int, int *, char **, gboolean);                wiretap/file_access.c
+        -&gt; void init_open_routines();                                                                wiretap/file_access.c
+            -&gt; wtap_open_return_val libpcap_open(wtap *, int *, gchar **);                            wiretap/libpcap.c
+                {
+                    ……
+                    wth-&gt;subtype_read = libpcap_read;
+                    wth-&gt;subtype_seek_read = libpcap_seek_read;
+                    ……
+                }
+</code></pre><h5 id="2-_read_pcpa_file__28read_buffer_3A_wtap-_26gt_3Bframe_buffer_29"><a href="#2-_read_pcpa_file__28read_buffer_3A_wtap-_26gt_3Bframe_buffer_29" class="headerlink" title="2. read pcpa file (read buffer: wtap-&gt;frame_buffer)"></a>2. read pcpa file (read buffer: wtap-&gt;frame_buffer)</h5><pre><code>-&gt; gboolean wtap_read(wtap *, int *, gchar **, gint64 *);                                            wiretap/wtap.c
+    -&gt; static gboolean libpcap_read(wtap *, int *, gchar **, gint64 *);                                wiretap/libpcap.c
 
+        -&gt; static gboolean libpcap_read_packet(wtap *, FILE_T , struct wtap_pkthdr *,
+            Buffer *, int *, gchar **);                                                                wiretap/libpcap.c
+                -&gt; static int libpcap_read_header(wtap *, FILE_T, int *, gchar **,
+                    struct pcaprec_ss990915_hdr *);                                                    wiretap/libpcap.c
+                    -&gt; gboolean wtap_read_bytes_or_eof(FILE_T, void *, unsigned int,
+                        int *, gchar **);                                                            wiretap/wtap.c
+                        -&gt; int file_read(void *, unsigned int, FILE_T);                                wiretap/file_wrappers.c
+
+        -&gt; gboolean wtap_read_packet_bytes(FILE_T, Buffer *, guint, int *, gchar **);                wiretap//wtap.c
+            -&gt;     void ws_buffer_assure_space(Buffer*, gsize);                                        wsutil/buffer.c
+                guint8 * ws_buffer_start_ptr(Buffer* buffer);                                        wsutil/buffer.c
+                    -&gt; gboolean wtap_read_bytes(FILE_T, void *, unsigned int, int *, gchar **)        wiretap//wtap.c
+                        -&gt; int file_read(void *, unsigned int, FILE_T);                                wiretap/file_wrappers.c
+</code></pre><h5 id="3-_analysis_packet"><a href="#3-_analysis_packet" class="headerlink" title="3. analysis packet"></a>3. analysis packet</h5><pre><code>-&gt; guint8 *wtap_buf_ptr(wtap *);                                                                    wiretap/wtap.c
+-&gt; static gboolean process_packet(capture_file *, epan_dissect_t *, gint64, struct wtap_pkthdr *,
+    const guchar *, guint);                                                                            tshark.c
+</code></pre>
       
     </div>
     
@@ -286,15 +235,11 @@ hexo g #生成静态文件
     
 <nav id="article-nav">
   
-    <a href="/2016/01/11/Linux-Kernel线程/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption"><</strong>
-      <div class="article-nav-title">
-        
-          Linux Kernel线程
-        
-      </div>
-    </a>
   
+    <a href="/2016/02/22/WLAN相关名词/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">WLAN相关名词</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
   
 </nav>
 
