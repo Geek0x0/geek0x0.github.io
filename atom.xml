@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://http://caydyn-skd.github.io/"/>
-  <updated>2016-04-01T03:41:36.000Z</updated>
+  <updated>2016-05-24T06:40:54.000Z</updated>
   <id>http://http://caydyn-skd.github.io/</id>
   
   <author>
@@ -15,11 +15,69 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title><![CDATA[Linux RAM Disk]]></title>
+    <link href="http://http://caydyn-skd.github.io/2016/05/24/Linux-RAM-Disk/"/>
+    <id>http://http://caydyn-skd.github.io/2016/05/24/Linux-RAM-Disk/</id>
+    <published>2016-05-24T02:04:15.000Z</published>
+    <updated>2016-05-24T06:40:54.000Z</updated>
+    <content type="html"><![CDATA[<h2 id="0x00__u5173_u4E8E_Linux__u76F8_u5173_u5185_u5B58_u6587_u4EF6_u7CFB_u7EDF_u7684_u7C7B_u578B"><a href="#0x00__u5173_u4E8E_Linux__u76F8_u5173_u5185_u5B58_u6587_u4EF6_u7CFB_u7EDF_u7684_u7C7B_u578B" class="headerlink" title="0x00 关于 Linux 相关内存文件系统的类型"></a><strong>0x00</strong> 关于 Linux 相关内存文件系统的类型</h2><ul>
+<li><p><strong>关于tmpfs 和 ramfs</strong><br>  Linux 中有两个基于RAM的文件系统类型，<strong>tmpfs</strong>和<strong>ramfs</strong>，<strong>ramfs</strong>是较老的文件系统类型，<strong>tmpfs</strong>在大多数情况下是可以取代<strong>ramfs</strong>的。</p>
+</li>
+<li><p><strong>ramfs</strong><br>  ramfs 是 Linux 下一种基于 RAM 做存储的文件系统，由于是将 RAM 作为最后一层的存储，所以 ramfs 中不会使用 swap ，但是ramfs的最大缺点就是会吃光系统所有的内存，虽然挂载 ramfs 时候指定了大小，但是但是你可以写入比指定大小更大的文件。</p>
+</li>
+<li><p><strong>tmpfs</strong><br>  tmpfs 是将所有的文件都保存在虚拟内存中，tmpfs 是 ramfs 的衍生品，tmpfs 使用了虚拟内存机制，所以会进行 swap ，但是相对于 ramfs 的好处是写入的文件，不能超过挂载时所指定的大小。</p>
+</li>
+</ul>
+<a id="more"></a>
+<ul>
+<li><p><strong>举例说明</strong><br>  在 Linux 下使用 free 命令可以获取设备内存相关信息</p>
+<pre><code>root@caydynOS:~# free -h
+     total       used       free     shared    buffers     cached
+Mem:          2.0G       1.7G       225M         0B       156K        16M
+-/+ buffers/cache:       1.7G       242M
+Swap:         130M         0B       130M
+</code></pre></li>
+</ul>
+<pre><code>在 /mnt 下创建挂载点
+
+    mkdir /mnt/ramdisk
+
+
++ 使用 ramfs 作为 RAM Disk
+
+        mount -t ramfs -o size=512m tmpfs /mnt/ramdisk
+
++ 使用 tmpfs 作为 RAM Disk
+
+        mount -t tmpfs -o size=512m tmpfs /mnt/ramdisk
+</code></pre><ul>
+<li><p><strong>性能测试结果</strong></p>
+<p>  <img src="http://www.leeon.me/upload/2010-12/20101221131234_56002.jpg" alt=""><br>  <img src="http://www.leeon.me/upload/2010-12/20101221131209_33920.jpg" alt=""><br>  <img src="http://www.leeon.me/upload/2010-12/20101221131237_37684.jpg" alt=""><br>  <img src="http://www.leeon.me/upload/2010-12/20101221131203_13297.jpg" alt=""></p>
+</li>
+</ul>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h2 id="0x00__u5173_u4E8E_Linux__u76F8_u5173_u5185_u5B58_u6587_u4EF6_u7CFB_u7EDF_u7684_u7C7B_u578B"><a href="#0x00__u5173_u4E8E_Linux__u76F8_u5173_u5185_u5B58_u6587_u4EF6_u7CFB_u7EDF_u7684_u7C7B_u578B" class="headerlink" title="0x00 关于 Linux 相关内存文件系统的类型"></a><strong>0x00</strong> 关于 Linux 相关内存文件系统的类型</h2><ul>
+<li><p><strong>关于tmpfs 和 ramfs</strong><br>  Linux 中有两个基于RAM的文件系统类型，<strong>tmpfs</strong>和<strong>ramfs</strong>，<strong>ramfs</strong>是较老的文件系统类型，<strong>tmpfs</strong>在大多数情况下是可以取代<strong>ramfs</strong>的。</p>
+</li>
+<li><p><strong>ramfs</strong><br>  ramfs 是 Linux 下一种基于 RAM 做存储的文件系统，由于是将 RAM 作为最后一层的存储，所以 ramfs 中不会使用 swap ，但是ramfs的最大缺点就是会吃光系统所有的内存，虽然挂载 ramfs 时候指定了大小，但是但是你可以写入比指定大小更大的文件。</p>
+</li>
+<li><p><strong>tmpfs</strong><br>  tmpfs 是将所有的文件都保存在虚拟内存中，tmpfs 是 ramfs 的衍生品，tmpfs 使用了虚拟内存机制，所以会进行 swap ，但是相对于 ramfs 的好处是写入的文件，不能超过挂载时所指定的大小。</p>
+</li>
+</ul>]]>
+    
+    </summary>
+    
+      <category term="Linux" scheme="http://http://caydyn-skd.github.io/tags/Linux/"/>
+    
+  </entry>
+  
+  <entry>
     <title><![CDATA[Wireshark-2.0.1 源码分析]]></title>
     <link href="http://http://caydyn-skd.github.io/2016/04/01/Wireshark-2-0-1-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
     <id>http://http://caydyn-skd.github.io/2016/04/01/Wireshark-2-0-1-源码分析/</id>
     <published>2016-04-01T03:38:17.000Z</published>
-    <updated>2016-04-01T03:41:36.000Z</updated>
+    <updated>2016-04-01T03:41:46.000Z</updated>
     <content type="html"><![CDATA[<h3 id="u672C_u6587_u7EAF_u5E72_u8D27_u4EC5_u4E3A_u53CB_u7F16_u7801_u80FD_u529B_u670B_u53CB_u8BBE_u8BA1"><a href="#u672C_u6587_u7EAF_u5E72_u8D27_u4EC5_u4E3A_u53CB_u7F16_u7801_u80FD_u529B_u670B_u53CB_u8BBE_u8BA1" class="headerlink" title="本文纯干货仅为友编码能力朋友设计"></a>本文纯干货仅为友编码能力朋友设计</h3><h4 id="0x1-__u5173_u4E8ETshark_u6E90_u7801_u5206_u6790"><a href="#0x1-__u5173_u4E8ETshark_u6E90_u7801_u5206_u6790" class="headerlink" title="0x1. 关于Tshark源码分析"></a>0x1. 关于Tshark源码分析</h4><h5 id="1-_open_pcap_file"><a href="#1-_open_pcap_file" class="headerlink" title="1. open pcap file"></a>1. open pcap file</h5><pre><code>-&gt; cf_status_t cf_open(capture_file *, const char *, unsigned int, gboolean, int *);                tshark.c
     -&gt; wtap * wtap_open_offline(const char *, unsigned int, int *, char **, gboolean);                wiretap/file_access.c
         -&gt; void init_open_routines();                                                                wiretap/file_access.c

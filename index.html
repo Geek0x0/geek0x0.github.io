@@ -105,7 +105,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/Blog-搭建/" style="font-size: 10px;">Blog 搭建</a> <a href="/tags/Linux-Kernel/" style="font-size: 10px;">Linux Kernel</a> <a href="/tags/SCA/" style="font-size: 10px;">SCA</a> <a href="/tags/wireless/" style="font-size: 10px;">wireless</a>
+						<a href="/tags/Blog-搭建/" style="font-size: 10px;">Blog 搭建</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/Linux-Kernel/" style="font-size: 10px;">Linux Kernel</a> <a href="/tags/SCA/" style="font-size: 10px;">SCA</a> <a href="/tags/wireless/" style="font-size: 10px;">wireless</a>
 					</div>
 				</section>
 				
@@ -172,6 +172,73 @@
 </nav>
 
       <div class="body-wrap">
+  
+    <article id="post-Linux-RAM-Disk" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/05/24/Linux-RAM-Disk/" class="article-date">
+  	<time datetime="2016-05-24T02:04:15.000Z" itemprop="datePublished">2016-05-24</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/05/24/Linux-RAM-Disk/">Linux RAM Disk</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="0x00__u5173_u4E8E_Linux__u76F8_u5173_u5185_u5B58_u6587_u4EF6_u7CFB_u7EDF_u7684_u7C7B_u578B"><a href="#0x00__u5173_u4E8E_Linux__u76F8_u5173_u5185_u5B58_u6587_u4EF6_u7CFB_u7EDF_u7684_u7C7B_u578B" class="headerlink" title="0x00 关于 Linux 相关内存文件系统的类型"></a><strong>0x00</strong> 关于 Linux 相关内存文件系统的类型</h2><ul>
+<li><p><strong>关于tmpfs 和 ramfs</strong><br>  Linux 中有两个基于RAM的文件系统类型，<strong>tmpfs</strong>和<strong>ramfs</strong>，<strong>ramfs</strong>是较老的文件系统类型，<strong>tmpfs</strong>在大多数情况下是可以取代<strong>ramfs</strong>的。</p>
+</li>
+<li><p><strong>ramfs</strong><br>  ramfs 是 Linux 下一种基于 RAM 做存储的文件系统，由于是将 RAM 作为最后一层的存储，所以 ramfs 中不会使用 swap ，但是ramfs的最大缺点就是会吃光系统所有的内存，虽然挂载 ramfs 时候指定了大小，但是但是你可以写入比指定大小更大的文件。</p>
+</li>
+<li><p><strong>tmpfs</strong><br>  tmpfs 是将所有的文件都保存在虚拟内存中，tmpfs 是 ramfs 的衍生品，tmpfs 使用了虚拟内存机制，所以会进行 swap ，但是相对于 ramfs 的好处是写入的文件，不能超过挂载时所指定的大小。</p>
+</li>
+</ul>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li></ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/2016/05/24/Linux-RAM-Disk/#more">更多内容 >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
   
     <article id="post-Wireshark-2-0-1-源码分析" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -467,13 +534,16 @@
     <div id="footer-info">
     	<div class="footer-left">
     		&copy; 2016 Caydyn
+    		&nbsp;&nbsp;本站总访问量<span id="busuanzi_value_site_pv"></span>次
+			&nbsp;&nbsp;本站访客数<span id="busuanzi_value_site_uv"></span>人次
     	</div>
       	<div class="footer-right">
       	</div>
     </div>
   </div>
 </footer>
-
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
     </div>
     
   <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">

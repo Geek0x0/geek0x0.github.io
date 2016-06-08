@@ -4,17 +4,31 @@
   <meta charset="utf-8">
   
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <title>Tag: SCA | Caydyn Blog</title>
+  <title>Linux RAM Disk | Caydyn Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Caydyn Blog">
-<meta property="og:url" content="http://http://caydyn-skd.github.io/tags/SCA/index.html">
+  <meta name="description" content="0x00 关于 Linux 相关内存文件系统的类型
+关于tmpfs 和 ramfs  Linux 中有两个基于RAM的文件系统类型，tmpfs和ramfs，ramfs是较老的文件系统类型，tmpfs在大多数情况下是可以取代ramfs的。
+
+ramfs  ramfs 是 Linux 下一种基于 RAM 做存储的文件系统，由于是将 RAM 作为最后一层的存储，所以 ramfs 中不会使用 swap ，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux RAM Disk">
+<meta property="og:url" content="http://http://caydyn-skd.github.io/2016/05/24/Linux-RAM-Disk/index.html">
 <meta property="og:site_name" content="Caydyn Blog">
-<meta property="og:description">
+<meta property="og:description" content="0x00 关于 Linux 相关内存文件系统的类型
+关于tmpfs 和 ramfs  Linux 中有两个基于RAM的文件系统类型，tmpfs和ramfs，ramfs是较老的文件系统类型，tmpfs在大多数情况下是可以取代ramfs的。
+
+ramfs  ramfs 是 Linux 下一种基于 RAM 做存储的文件系统，由于是将 RAM 作为最后一层的存储，所以 ramfs 中不会使用 swap ，">
+<meta property="og:image" content="http://www.leeon.me/upload/2010-12/20101221131234_56002.jpg">
+<meta property="og:image" content="http://www.leeon.me/upload/2010-12/20101221131209_33920.jpg">
+<meta property="og:image" content="http://www.leeon.me/upload/2010-12/20101221131237_37684.jpg">
+<meta property="og:image" content="http://www.leeon.me/upload/2010-12/20101221131203_13297.jpg">
+<meta property="og:updated_time" content="2016-05-24T06:40:54.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Caydyn Blog">
-<meta name="twitter:description">
+<meta name="twitter:title" content="Linux RAM Disk">
+<meta name="twitter:description" content="0x00 关于 Linux 相关内存文件系统的类型
+关于tmpfs 和 ramfs  Linux 中有两个基于RAM的文件系统类型，tmpfs和ramfs，ramfs是较老的文件系统类型，tmpfs在大多数情况下是可以取代ramfs的。
+
+ramfs  ramfs 是 Linux 下一种基于 RAM 做存储的文件系统，由于是将 RAM 作为最后一层的存储，所以 ramfs 中不会使用 swap ，">
   
   
     <link rel="icon" href="/favicon.png">
@@ -171,53 +185,104 @@
 	</div>
 </nav>
 
-      <div class="body-wrap">
+      <div class="body-wrap"><article id="post-Linux-RAM-Disk" class="article article-type-post" itemscope itemprop="blogPost">
   
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2016" class="archive-year">2016</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2016/04/01/Wireshark-2-0-1-源码分析/" class="archive-article-date">
-  	<time datetime="2016-04-01T03:38:17.000Z" itemprop="datePublished">Apr 1</time>
+    <div class="article-meta">
+      <a href="/2016/05/24/Linux-RAM-Disk/" class="article-date">
+  	<time datetime="2016-05-24T02:04:15.000Z" itemprop="datePublished">2016-05-24</time>
 </a>
-        </div>
-    	 
+    </div>
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/04/01/Wireshark-2-0-1-源码分析/">Wireshark-2.0.1 源码分析</a>
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Linux RAM Disk
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+      </header>
+      
+      <div class="article-info article-info-post">
+        
 	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SCA/">SCA</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li></ul>
 	</div>
 
-          
+        
 
-        </div>
         <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
+      </div>
+      
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="0x00__u5173_u4E8E_Linux__u76F8_u5173_u5185_u5B58_u6587_u4EF6_u7CFB_u7EDF_u7684_u7C7B_u578B"><a href="#0x00__u5173_u4E8E_Linux__u76F8_u5173_u5185_u5B58_u6587_u4EF6_u7CFB_u7EDF_u7684_u7C7B_u578B" class="headerlink" title="0x00 关于 Linux 相关内存文件系统的类型"></a><strong>0x00</strong> 关于 Linux 相关内存文件系统的类型</h2><ul>
+<li><p><strong>关于tmpfs 和 ramfs</strong><br>  Linux 中有两个基于RAM的文件系统类型，<strong>tmpfs</strong>和<strong>ramfs</strong>，<strong>ramfs</strong>是较老的文件系统类型，<strong>tmpfs</strong>在大多数情况下是可以取代<strong>ramfs</strong>的。</p>
+</li>
+<li><p><strong>ramfs</strong><br>  ramfs 是 Linux 下一种基于 RAM 做存储的文件系统，由于是将 RAM 作为最后一层的存储，所以 ramfs 中不会使用 swap ，但是ramfs的最大缺点就是会吃光系统所有的内存，虽然挂载 ramfs 时候指定了大小，但是但是你可以写入比指定大小更大的文件。</p>
+</li>
+<li><p><strong>tmpfs</strong><br>  tmpfs 是将所有的文件都保存在虚拟内存中，tmpfs 是 ramfs 的衍生品，tmpfs 使用了虚拟内存机制，所以会进行 swap ，但是相对于 ramfs 的好处是写入的文件，不能超过挂载时所指定的大小。</p>
+</li>
+</ul>
+<a id="more"></a>
+<ul>
+<li><p><strong>举例说明</strong><br>  在 Linux 下使用 free 命令可以获取设备内存相关信息</p>
+<pre><code>root@caydynOS:~# free -h
+     total       used       free     shared    buffers     cached
+Mem:          2.0G       1.7G       225M         0B       156K        16M
+-/+ buffers/cache:       1.7G       242M
+Swap:         130M         0B       130M
+</code></pre></li>
+</ul>
+<pre><code>在 /mnt 下创建挂载点
+
+    mkdir /mnt/ramdisk
+
+
++ 使用 ramfs 作为 RAM Disk
+
+        mount -t ramfs -o size=512m tmpfs /mnt/ramdisk
+
++ 使用 tmpfs 作为 RAM Disk
+
+        mount -t tmpfs -o size=512m tmpfs /mnt/ramdisk
+</code></pre><ul>
+<li><p><strong>性能测试结果</strong></p>
+<p>  <img src="http://www.leeon.me/upload/2010-12/20101221131234_56002.jpg" alt=""><br>  <img src="http://www.leeon.me/upload/2010-12/20101221131209_33920.jpg" alt=""><br>  <img src="http://www.leeon.me/upload/2010-12/20101221131237_37684.jpg" alt=""><br>  <img src="http://www.leeon.me/upload/2010-12/20101221131203_13297.jpg" alt=""></p>
+</li>
+</ul>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2016/04/01/Wireshark-2-0-1-源码分析/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Wireshark-2.0.1 源码分析</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+
+
+
+
 
 </div>
       <footer id="footer">
@@ -246,9 +311,9 @@
 		mathjax: true,
 		animate: true,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false
 	}
