@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>关于WANem简单实用 | Caydyn Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="0x00 关于 WANem
+WANem简介  
+
+WANem 全称为 WAN emulator，输一个基于开源的广域网仿真模拟器，其也是基于Linux Traffic Control的，组要提供在局域网环境内模拟广域网的带宽限制、网络时延、网络丢包、时延抖动等网络特性，高级功能有：随机复位连接、按概率重复报文、按概率乱序报文、按概率瞬时断开网络、按协议随机断开网络，可针对不同协议、主机、网络环境，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="关于WANem简单实用">
+<meta property="og:url" content="http://http://caydyn-skd.github.io/2016/06/23/关于WANem简单实用/index.html">
+<meta property="og:site_name" content="Caydyn Blog">
+<meta property="og:description" content="0x00 关于 WANem
+WANem简介  
+
+WANem 全称为 WAN emulator，输一个基于开源的广域网仿真模拟器，其也是基于Linux Traffic Control的，组要提供在局域网环境内模拟广域网的带宽限制、网络时延、网络丢包、时延抖动等网络特性，高级功能有：随机复位连接、按概率重复报文、按概率乱序报文、按概率瞬时断开网络、按协议随机断开网络，可针对不同协议、主机、网络环境，">
+<meta property="og:image" content="http://img1.ph.126.net/73cxvdf0fIEHH0EcwDHxtQ==/3249065656271133577.jpg">
+<meta property="og:image" content="http://img0.ph.126.net/DGxjO64jA79v1WRDdL_3Pg==/3249065656271133579.jpg">
+<meta property="og:image" content="http://img1.ph.126.net/48fbKpI1L0bPG_OprN8U3g==/130322914317078637.jpg">
+<meta property="og:image" content="http://img2.ph.126.net/3vtdiP3F5nSKxCzbNcFoNQ==/3887732378427606158.jpg">
+<meta property="og:image" content="http://img2.ph.126.net/iHBbaXHdDk5Tif2QSOLzpA==/6598079118332025770.jpg">
+<meta property="og:image" content="http://img0.ph.126.net/Aej2bpo3_xqepS4c_cPy2A==/6598084615890164190.jpg">
+<meta property="og:updated_time" content="2016-06-23T03:09:35.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="关于WANem简单实用">
+<meta name="twitter:description" content="0x00 关于 WANem
+WANem简介  
+
+WANem 全称为 WAN emulator，输一个基于开源的广域网仿真模拟器，其也是基于Linux Traffic Control的，组要提供在局域网环境内模拟广域网的带宽限制、网络时延、网络丢包、时延抖动等网络特性，高级功能有：随机复位连接、按概率重复报文、按概率乱序报文、按概率瞬时断开网络、按协议随机断开网络，可针对不同协议、主机、网络环境，">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/head.png" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Caydyn</a></h1>
+		</hgroup>
+
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						<li>友情链接</li>
+						
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主    页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/caydyn-skd" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/372145087/" title="weibo">weibo</a>
+					        
+								<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+					        
+								<a class="mail" target="_blank" href="mailto:372145087@qq.com" title="mail">mail</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Blog-搭建/" style="font-size: 10px;">Blog 搭建</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/Linux-Kernel/" style="font-size: 10px;">Linux Kernel</a> <a href="/tags/SCA/" style="font-size: 10px;">SCA</a> <a href="/tags/WANem/" style="font-size: 10px;">WANem</a> <a href="/tags/electron/" style="font-size: 10px;">electron</a> <a href="/tags/wireless/" style="font-size: 10px;">wireless</a>
+					</div>
+				</section>
+				
+				
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://fuxiao.xyz/blog/">Jerry.f的博客</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Caydyn</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="/head.png" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Caydyn</h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主    页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/caydyn-skd" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/372145087/" title="weibo">weibo</a>
+			        
+						<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+			        
+						<a class="mail" target="_blank" href="mailto:372145087@qq.com" title="mail">mail</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-关于WANem简单实用" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/06/23/关于WANem简单实用/" class="article-date">
+  	<time datetime="2016-06-23T02:05:08.000Z" itemprop="datePublished">2016-06-23</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      关于WANem简单实用
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/WANem/">WANem</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="0x00__u5173_u4E8E_WANem"><a href="#0x00__u5173_u4E8E_WANem" class="headerlink" title="0x00 关于 WANem"></a><strong>0x00</strong> 关于 WANem</h2><ul>
+<li><p><strong>WANem简介</strong>  </p>
+<ul>
+<li><strong>WANem</strong> 全称为 WAN emulator，输一个基于开源的广域网仿真模拟器，其也是基于<strong>Linux Traffic Control</strong>的，组要提供在局域网环境内模拟广域网的<strong>带宽限制、网络时延、网络丢包、时延抖动</strong>等网络特性，高级功能有：随机复位连接、按概率重复报文、按概率乱序报文、按概率瞬时断开网络、按协议随机断开网络，可针对不同协议、主机、网络环境，甚至是不同应用程序进行模拟</li>
+</ul>
+</li>
+<li><p><strong>WANem使用优点</strong>  </p>
+<ul>
+<li>完全开源免费</li>
+<li>可在单网卡设备上实现所有功能</li>
+<li>支持外接设备启动，可无需安装即可正常使用，也可用于虚拟机</li>
+<li>可配置多条规则，相互无影响，方便于集中式测试环境</li>
+<li>支持WEB图形界面管理，方便设置</li>
+</ul>
+</li>
+<li><p><strong>下载地址</strong>  </p>
+<ul>
+<li><a href="http://wanem.sourceforge.net/（如果无法访问请科学上网）" target="_blank" rel="external">http://wanem.sourceforge.net/（如果无法访问请科学上网）</a></li>
+</ul>
+</li>
+<li><p><strong>界面截图</strong><br><img src="http://img1.ph.126.net/73cxvdf0fIEHH0EcwDHxtQ==/3249065656271133577.jpg" alt="界面图片"></p>
+</li>
+</ul>
+<a id="more"></a>
+<hr>
+<h2 id="0x01__u5B89_u88C5_WANem"><a href="#0x01__u5B89_u88C5_WANem" class="headerlink" title="0x01 安装 WANem"></a><strong>0x01</strong> 安装 WANem</h2><ul>
+<li>下载 WANem 镜像后刻录到U盘中（可使用软碟通等软件刻录）</li>
+<li>将U盘插入到可运行设备后，在启动时选择BIOS启动项为U Disk启动</li>
+<li>选择U Disk启动后会看到如下界面<br> <img src="http://img0.ph.126.net/DGxjO64jA79v1WRDdL_3Pg==/3249065656271133579.jpg" alt="启动界面1"><br> <img src="http://img1.ph.126.net/48fbKpI1L0bPG_OprN8U3g==/130322914317078637.jpg" alt="启动界面2"></li>
+<li>当出现 <strong>Do you want to configure all interfaces via DHCP（y/n）</strong> 时可选择y，有网线连接的网口通过DHCP获取IP地址，选择n则手动配置静态IP地址</li>
+<li>最进入到WANem界面</li>
+</ul>
+<hr>
+<h2 id="0x02__u914D_u7F6E_WANem"><a href="#0x02__u914D_u7F6E_WANem" class="headerlink" title="0x02 配置 WANem"></a><strong>0x02</strong> 配置 WANem</h2><ul>
+<li>进入到 WANem 终端此时控制台的默认提示符为 <strong>WANemControl@PERC</strong>，输入 help 可以获取帮助信息</li>
+<li>输入 exit2shell 可以进入到 Linux 的 Shell 中，通过 ifconfig 命令可以查看当前的设备网口IP地址<br><img src="http://img2.ph.126.net/3vtdiP3F5nSKxCzbNcFoNQ==/3887732378427606158.jpg" alt="网口IP信息"></li>
+<li>可通过 WEB 管理界面配置 WANem，打开浏览器（WANem运行主机 或者 局域网内任意电脑），输入地址 “http://&lt;该机器的IP地址&gt;/WANem”，即可登录控制界面<br><img src="http://img2.ph.126.net/iHBbaXHdDk5Tif2QSOLzpA==/6598079118332025770.jpg" alt="WEB界面"></li>
+<li>WEB 界面功能导航介绍<ul>
+<li>About        关于，该版本WANem简介</li>
+<li>WANalyer    广域网学习工具，通过Ping目标主机测试获取丢包、时延、抖动信息</li>
+<li>Basic Mode    基础模式，只能修改对应网口的带宽、时延参数</li>
+<li>Advanced Mode    高级模式，可设定更复杂的网络规则，可基于不同接口、主机、网段<ul>
+<li>Packet Limit：用来设置包的队列大小，默认为1000，当队列超过1000时，超过的包将被丢弃</li>
+<li>Symmetrical network：对称网络，选中为Yes的时候，应用网络的规则将在数据包来回的方向上都生效</li>
+<li>Choose BW：从快速列表选择带宽</li>
+<li>Specify BW：自定义带宽</li>
+<li>Delay：延时，这里设置的是单向的延时。Jitter，抖动；Correlation，相关性，用来设置这个包的延迟时间与上一个包的时间的相关度</li>
+<li>Loss：丢包率；Correlation，相关性，以一定的概率发生突发的大量的丢包，但平均丢包率不会超过Loss定义的值</li>
+<li>Duplication：重包率，以一定概率生成某个包的多份拷贝，并按随机时间到达目标端</li>
+<li>Correlation，相关性，类似Loss的</li>
+<li>Packet reordering：包重排序率，按概率将包的顺序打乱，gap用来确定包重排序的个数，不设置更接近真实的环境</li>
+<li>Corruption：错包率，按概率产生噪音，即格式错误的包</li>
+<li>Idle timer Disconnect：空闲断开定时器，当网络空闲时，按设定的时间对Type定义的协议断开连接</li>
+<li>Random Disconnect：按Type随机断开，MTTF，平均失效前时间，用Low和High定义两个极值，MTTF，平均恢复前时间</li>
+<li>IP source address：匹配的源IP地址</li>
+<li>IP source subnet：源IP地址的子网</li>
+<li>IP dest address：匹配的目标IP地址</li>
+<li>IP dest subnet：匹配的目标IP地址的子网</li>
+<li>Add a rule set：添加一条规则</li>
+<li>Apply settings：应用设置</li>
+</ul>
+</li>
+<li>Save/Restore    备份/恢复数据</li>
+<li>Help    帮助</li>
+</ul>
+</li>
+<li>WANem 在网络拓扑中的位置<br><img src="http://img0.ph.126.net/Aej2bpo3_xqepS4c_cPy2A==/6598084615890164190.jpg" alt="网络拓扑"></li>
+</ul>
+<hr>
+<h2 id="0x03__u8FDE_u63A5_u5230_WANem"><a href="#0x03__u8FDE_u63A5_u5230_WANem" class="headerlink" title="0x03 连接到 WANem"></a><strong>0x03</strong> 连接到 WANem</h2><ul>
+<li>WANem 为单网口设备<ul>
+<li>Windows 作为客户端<ul>
+<li>首先删除 Windows 的默认网关：route delete 0.0.0.0</li>
+<li>然后增加一条指向 WANem 设备的默认路由：route add 0.0.0.0 mask 0.0.0.0 <wanem ipaddr=""></wanem></li>
+<li>如若没有生效则，先执行 route -F 后再重复上两条操作</li>
+<li>设置时延后，使用Ping可检测效果</li>
+</ul>
+</li>
+<li>Linux 作为客户端<ul>
+<li>首先删除 Windows 的默认网关：route delete 0.0.0.0</li>
+<li>然后增加一条指向 WANem 设备的默认路由：route add default gw <wanem ipaddr=""></wanem></li>
+<li>设置时延后，使用Ping可检测效果</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2016/06/21/Hello-World-For-electron/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Hello World For electron</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2016 Caydyn
+    		&nbsp;&nbsp;本站总访问量<span id="busuanzi_value_site_pv"></span>次
+			&nbsp;&nbsp;本站访客数<span id="busuanzi_value_site_uv"></span>人次
+    	</div>
+      	<div class="footer-right">
+      	</div>
+    </div>
+  </div>
+</footer>
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js" type="text/javascript"></script>
+<script src="/js/main.js" type="text/javascript"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>
