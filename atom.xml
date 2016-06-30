@@ -344,37 +344,11 @@ Swap:         130M         0B       130M
     <link href="http://caydyn-skd.github.io/2016/04/01/Wireshark-2-0-1-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/"/>
     <id>http://caydyn-skd.github.io/2016/04/01/Wireshark-2-0-1-源码分析/</id>
     <published>2016-04-01T03:38:17.000Z</published>
-    <updated>2016-04-01T03:41:46.000Z</updated>
-    <content type="html"><![CDATA[<h3 id="u672C_u6587_u7EAF_u5E72_u8D27_u4EC5_u4E3A_u53CB_u7F16_u7801_u80FD_u529B_u670B_u53CB_u8BBE_u8BA1"><a href="#u672C_u6587_u7EAF_u5E72_u8D27_u4EC5_u4E3A_u53CB_u7F16_u7801_u80FD_u529B_u670B_u53CB_u8BBE_u8BA1" class="headerlink" title="本文纯干货仅为友编码能力朋友设计"></a>本文纯干货仅为友编码能力朋友设计</h3><h4 id="0x1-__u5173_u4E8ETshark_u6E90_u7801_u5206_u6790"><a href="#0x1-__u5173_u4E8ETshark_u6E90_u7801_u5206_u6790" class="headerlink" title="0x1. 关于Tshark源码分析"></a>0x1. 关于Tshark源码分析</h4><h5 id="1-_open_pcap_file"><a href="#1-_open_pcap_file" class="headerlink" title="1. open pcap file"></a>1. open pcap file</h5><pre><code>-&gt; cf_status_t cf_open(capture_file *, const char *, unsigned int, gboolean, int *);                tshark.c
-    -&gt; wtap * wtap_open_offline(const char *, unsigned int, int *, char **, gboolean);                wiretap/file_access.c
-        -&gt; void init_open_routines();                                                                wiretap/file_access.c
-            -&gt; wtap_open_return_val libpcap_open(wtap *, int *, gchar **);                            wiretap/libpcap.c
-                {
-                    ……
-                    wth-&gt;subtype_read = libpcap_read;
-                    wth-&gt;subtype_seek_read = libpcap_seek_read;
-                    ……
-                }
-</code></pre><h5 id="2-_read_pcpa_file__28read_buffer_3A_wtap-_26gt_3Bframe_buffer_29"><a href="#2-_read_pcpa_file__28read_buffer_3A_wtap-_26gt_3Bframe_buffer_29" class="headerlink" title="2. read pcpa file (read buffer: wtap-&gt;frame_buffer)"></a>2. read pcpa file (read buffer: wtap-&gt;frame_buffer)</h5><pre><code>-&gt; gboolean wtap_read(wtap *, int *, gchar **, gint64 *);                                            wiretap/wtap.c
-    -&gt; static gboolean libpcap_read(wtap *, int *, gchar **, gint64 *);                                wiretap/libpcap.c
-
-        -&gt; static gboolean libpcap_read_packet(wtap *, FILE_T , struct wtap_pkthdr *,
-            Buffer *, int *, gchar **);                                                                wiretap/libpcap.c
-                -&gt; static int libpcap_read_header(wtap *, FILE_T, int *, gchar **,
-                    struct pcaprec_ss990915_hdr *);                                                    wiretap/libpcap.c
-                    -&gt; gboolean wtap_read_bytes_or_eof(FILE_T, void *, unsigned int,
-                        int *, gchar **);                                                            wiretap/wtap.c
-                        -&gt; int file_read(void *, unsigned int, FILE_T);                                wiretap/file_wrappers.c
-
-        -&gt; gboolean wtap_read_packet_bytes(FILE_T, Buffer *, guint, int *, gchar **);                wiretap//wtap.c
-            -&gt;     void ws_buffer_assure_space(Buffer*, gsize);                                        wsutil/buffer.c
-                guint8 * ws_buffer_start_ptr(Buffer* buffer);                                        wsutil/buffer.c
-                    -&gt; gboolean wtap_read_bytes(FILE_T, void *, unsigned int, int *, gchar **)        wiretap//wtap.c
-                        -&gt; int file_read(void *, unsigned int, FILE_T);                                wiretap/file_wrappers.c
-</code></pre><h5 id="3-_analysis_packet"><a href="#3-_analysis_packet" class="headerlink" title="3. analysis packet"></a>3. analysis packet</h5><pre><code>-&gt; guint8 *wtap_buf_ptr(wtap *);                                                                    wiretap/wtap.c
--&gt; static gboolean process_packet(capture_file *, epan_dissect_t *, gint64, struct wtap_pkthdr *,
-    const guchar *, guint);                                                                            tshark.c
-</code></pre>]]></content>
+    <updated>2016-06-30T08:27:07.000Z</updated>
+    <content type="html"><![CDATA[<h3 id="u672C_u6587_u7EAF_u5E72_u8D27_u4EC5_u4E3A_u53CB_u7F16_u7801_u80FD_u529B_u670B_u53CB_u8BBE_u8BA1"><a href="#u672C_u6587_u7EAF_u5E72_u8D27_u4EC5_u4E3A_u53CB_u7F16_u7801_u80FD_u529B_u670B_u53CB_u8BBE_u8BA1" class="headerlink" title="本文纯干货仅为友编码能力朋友设计"></a>本文纯干货仅为友编码能力朋友设计</h3><h4 id="0x1-__u5173_u4E8ETshark_u6E90_u7801_u5206_u6790"><a href="#0x1-__u5173_u4E8ETshark_u6E90_u7801_u5206_u6790" class="headerlink" title="0x1. 关于Tshark源码分析"></a>0x1. 关于Tshark源码分析</h4><h5 id="1-_open_pcap_file"><a href="#1-_open_pcap_file" class="headerlink" title="1. open pcap file"></a>1. open pcap file</h5><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">cf_status_t</span> cf_open(capture_file *, <span class="keyword">const</span> <span class="keyword">char</span> *, <span class="keyword">unsigned</span> <span class="keyword">int</span>, gboolean, <span class="keyword">int</span> *);</span><br><span class="line">	<span class="function">wtap * <span class="title">wtap_open_offline</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *, <span class="keyword">unsigned</span> <span class="keyword">int</span>, <span class="keyword">int</span> *, <span class="keyword">char</span> **, gboolean)</span></span>;</span><br><span class="line">		<span class="function"><span class="keyword">void</span> <span class="title">init_open_routines</span><span class="params">()</span></span>;	wiretap/file_access.<span class="function">c</span><br><span class="line">			wtap_open_return_val <span class="title">libpcap_open</span><span class="params">(wtap *, <span class="keyword">int</span> *, gchar **)</span></span>;</span><br><span class="line">				&#123;</span><br><span class="line">					……</span><br><span class="line">					wth-&gt;subtype_read = libpcap_read;</span><br><span class="line">					wth-&gt;subtype_seek_read = libpcap_seek_read;</span><br><span class="line">					……</span><br><span class="line">				&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="2-_read_pcpa_file__28read_buffer_3A_wtap-_26gt_3Bframe_buffer_29"><a href="#2-_read_pcpa_file__28read_buffer_3A_wtap-_26gt_3Bframe_buffer_29" class="headerlink" title="2. read pcpa file (read buffer: wtap-&gt;frame_buffer)"></a>2. read pcpa file (read buffer: wtap-&gt;frame_buffer)</h5><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">gboolean <span class="title">wtap_read</span><span class="params">(wtap *, <span class="keyword">int</span> *, gchar **, gint64 *)</span></span>;</span><br><span class="line">	<span class="function"><span class="keyword">static</span> gboolean <span class="title">libpcap_read</span><span class="params">(wtap *, <span class="keyword">int</span> *, gchar **, gint64 *)</span></span>;</span><br><span class="line">		<span class="function"><span class="keyword">static</span> gboolean <span class="title">libpcap_read_packet</span><span class="params">(wtap *, FILE_T , <span class="keyword">struct</span> wtap_pkthdr *, Buffer *, <span class="keyword">int</span> *, gchar **)</span></span>;</span><br><span class="line">			<span class="function"><span class="keyword">static</span> <span class="keyword">int</span> <span class="title">libpcap_read_header</span><span class="params">(wtap *, FILE_T, <span class="keyword">int</span> *, gchar **,</span><br><span class="line">				<span class="keyword">struct</span> pcaprec_ss990915_hdr *)</span></span>;</span><br><span class="line">					<span class="function">gboolean <span class="title">wtap_read_bytes_or_eof</span><span class="params">(FILE_T, <span class="keyword">void</span> *, <span class="keyword">unsigned</span> <span class="keyword">int</span>, <span class="keyword">int</span> *, gchar **)</span></span>;</span><br><span class="line">						<span class="function"><span class="keyword">int</span> <span class="title">file_read</span><span class="params">(<span class="keyword">void</span> *, <span class="keyword">unsigned</span> <span class="keyword">int</span>, FILE_T)</span></span>;</span><br><span class="line"></span><br><span class="line">		<span class="function">gboolean <span class="title">wtap_read_packet_bytes</span><span class="params">(FILE_T, Buffer *, guint, <span class="keyword">int</span> *, gchar **)</span></span>;</span><br><span class="line">			<span class="function"><span class="keyword">void</span> <span class="title">ws_buffer_assure_space</span><span class="params">(Buffer*, gsize)</span></span>;</span><br><span class="line">				<span class="function">guint8 * <span class="title">ws_buffer_start_ptr</span><span class="params">(Buffer* buffer)</span></span>;</span><br><span class="line">					<span class="function">gboolean <span class="title">wtap_read_bytes</span><span class="params">(FILE_T, <span class="keyword">void</span> *, <span class="keyword">unsigned</span> <span class="keyword">int</span>, <span class="keyword">int</span> *, gchar **)</span></span><br><span class="line">						<span class="keyword">int</span> <span class="title">file_read</span><span class="params">(<span class="keyword">void</span> *, <span class="keyword">unsigned</span> <span class="keyword">int</span>, FILE_T)</span></span>;</span><br></pre></td></tr></table></figure>
+<h5 id="3-_analysis_packet"><a href="#3-_analysis_packet" class="headerlink" title="3. analysis packet"></a>3. analysis packet</h5><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">guint8 *<span class="title">wtap_buf_ptr</span><span class="params">(wtap *)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">static</span> gboolean <span class="title">process_packet</span><span class="params">(capture_file *, epan_dissect_t *, gint64, <span class="keyword">struct</span> wtap_pkthdr *, <span class="keyword">const</span> guchar *, guint)</span></span>;</span><br></pre></td></tr></table></figure>
+]]></content>
     <summary type="html">
     <![CDATA[<h3 id="u672C_u6587_u7EAF_u5E72_u8D27_u4EC5_u4E3A_u53CB_u7F16_u7801_u80FD_u529B_u670B_u53CB_u8BBE_u8BA1"><a href="#u672C_u6587_u7EAF_u5E72_u]]>
     </summary>
@@ -418,40 +392,33 @@ Swap:         130M         0B       130M
     <link href="http://caydyn-skd.github.io/2016/01/11/Linux-Kernel%E7%BA%BF%E7%A8%8B/"/>
     <id>http://caydyn-skd.github.io/2016/01/11/Linux-Kernel线程/</id>
     <published>2016-01-11T12:49:44.000Z</published>
-    <updated>2016-01-18T08:39:25.000Z</updated>
-    <content type="html"><![CDATA[<h2 id="0x00_Kernel_API"><a href="#0x00_Kernel_API" class="headerlink" title="0x00 Kernel API"></a><strong>0x00</strong> Kernel API</h2><h3 id="u4F7F_u7528_u5230_u7684_u5934_u6587_u4EF6"><a href="#u4F7F_u7528_u5230_u7684_u5934_u6587_u4EF6" class="headerlink" title="使用到的头文件"></a>使用到的头文件</h3><pre><code>#include &lt;linux/sched.h&gt;
-#include &lt;linux/kthread.h&gt;
-</code></pre><a id="more"></a>
+    <updated>2016-06-30T08:28:42.000Z</updated>
+    <content type="html"><![CDATA[<h2 id="0x00_Kernel_API"><a href="#0x00_Kernel_API" class="headerlink" title="0x00 Kernel API"></a><strong>0x00</strong> Kernel API</h2><h3 id="u4F7F_u7528_u5230_u7684_u5934_u6587_u4EF6"><a href="#u4F7F_u7528_u5230_u7684_u5934_u6587_u4EF6" class="headerlink" title="使用到的头文件"></a>使用到的头文件</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;linux/sched.h&gt;</span></span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;linux/kthread.h&gt;</span></span></span><br></pre></td></tr></table></figure>
+<a id="more"></a>
 <h3 id="u76F8_u5173_u51FD_u6570_u89E3_u91CA"><a href="#u76F8_u5173_u51FD_u6570_u89E3_u91CA" class="headerlink" title="相关函数解释"></a>相关函数解释</h3><ul>
-<li><p>创建 Kernel 线程  </p>
-<pre><code>struct task_struct *kthread_create(int (*threadfn)(void *data),void *data,const char *namefmt, ...);
-</code></pre><p>  <em>参数说明：</em></p>
-<ul>
-<li><strong>threadfn</strong>     需要执行的主要逻辑</li>
-<li><strong>data</strong>        主逻辑传入参数</li>
-<li><strong>namefmt</strong>        线程名称  </li>
-</ul>
+<li>创建 Kernel 线程  <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">struct task_struct *kthread_create(int (*threadfn)(void *data),void *data,const char *namefmt, ...);</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<p>创建的线程返回<code>struct task_struct</code>指针，<strong>不会立即运行</strong></p>
+<pre><code>_参数说明：_
+- **threadfn**     需要执行的主要逻辑
+- **data**        主逻辑传入参数
+- **namefmt**        线程名称  
+</code></pre><p>创建的线程返回<code>struct task_struct</code>指针，<strong>不会立即运行</strong></p>
 <hr>
 <ul>
-<li><p>创建并且启动 Kernel 线程  </p>
-<pre><code>struct task_struct *kthread_run(int (*threadfn)(void *data),void *data,const char *namefmt, ...);
-</code></pre><p>  <em>参数说明：</em></p>
-<ul>
-<li><strong>threadfn</strong>     需要执行的主要逻辑</li>
-<li><strong>data</strong>        主逻辑传入参数</li>
-<li><strong>namefmt</strong>        线程名称  </li>
-</ul>
+<li>创建并且启动 Kernel 线程  <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">struct task_struct *kthread_run(int (*threadfn)(void *data),void *data,const char *namefmt, ...);</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<p>创建的线程返回<code>struct task_struct</code>指针，<strong>会立即运行</strong></p>
+<pre><code>_参数说明：_
+- **threadfn**     需要执行的主要逻辑
+- **data**        主逻辑传入参数
+- **namefmt**        线程名称  
+</code></pre><p>创建的线程返回<code>struct task_struct</code>指针，<strong>会立即运行</strong></p>
 <hr>
 <ul>
 <li><p>启动创建的 Kernel 线程</p>
-<pre><code>int wake_up_process(struct task_struct *tsk);
-</code></pre><p>  <em>参数说明：</em></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">wake_up_process</span><span class="params">(<span class="keyword">struct</span> task_struct *tsk)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>  <em>参数说明：</em></p>
 <ul>
 <li><strong>thread</strong>     通过<code>kthread_create</code>创建线程后返回的结构体</li>
 </ul>
@@ -460,114 +427,24 @@ Swap:         130M         0B       130M
 <hr>
 <ul>
 <li><p>线程停止</p>
-<pre><code>int kthread_stop(struct task_struct *thread);  
-</code></pre><p>  <em>参数说明：</em></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">kthread_stop</span><span class="params">(<span class="keyword">struct</span> task_struct *thread)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>  <em>参数说明：</em></p>
 <ul>
 <li><strong>thread</strong>     通过<code>kthread_create</code>或者<code>kthread_run</code>创建线程后返回的结构体</li>
 </ul>
 </li>
 <li><p>线程优先级调整</p>
-<pre><code>int sched_setscheduler(struct task_struct *p, int policy, struct sched_param *param);
-</code></pre><p>  <em>参数说明：</em></p>
-<ul>
-<li><strong>p</strong>     通过<code>kthread_create</code>创建线程后返回的结构体</li>
-<li><strong>policy</strong> 调度策略类型</li>
-<li><strong>param</strong>  调度优先级</li>
-</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">		<span class="function"><span class="keyword">int</span> <span class="title">sched_setscheduler</span><span class="params">(<span class="keyword">struct</span> task_struct *p, <span class="keyword">int</span> policy, <span class="keyword">struct</span> sched_param *param)</span></span>;</span><br><span class="line">```	</span><br><span class="line">	_参数说明：_</span><br><span class="line">	- **p** 	通过`kthread_create `创建线程后返回的结构体</span><br><span class="line">	- **policy** 调度策略类型</span><br><span class="line">	- **param**  调度优先级</span><br><span class="line">		</span><br><span class="line">+ _关于policy参数_</span><br><span class="line">	</span><br><span class="line">| 参数  		 	| 含义 				|</span><br><span class="line">| -----		 	|:----:			|</span><br><span class="line">| SCHED_OTHER  	| 分时调度策略		|</span><br><span class="line">| SCHED_FIFO		| 实时调度策略，先到先服务|</span><br><span class="line">| SCHED_RR    	| 实时调度策略，时间片轮转|</span><br><span class="line">		</span><br><span class="line"></span><br><span class="line">*关于 SHCED_RR 和 SCHED_FIFO 区别*  </span><br><span class="line">- 当采用SHCED_RR策略的进程的时间片用完，系统将重新分配时间片,并置于就绪队列尾  </span><br><span class="line">- SCHED_FIFO一旦占用cpu则一直运行,一直运行直到有更高优先级任务到达或自己放弃</span><br><span class="line">		</span><br><span class="line">+ _关于param参数_</span><br><span class="line">```C</span><br><span class="line">		<span class="keyword">struct</span> sched_param &#123;</span><br><span class="line">			<span class="keyword">int</span> sched_priority;</span><br><span class="line">		&#125;;</span><br><span class="line">		sched_priority <span class="comment">//对应区间 ［1， 99］</span></span><br></pre></td></tr></table></figure>
 </li>
-<li><p><em>关于policy参数</em></p>
-</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th>参数</th>
-<th style="text-align:center">含义</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>SCHED_OTHER</td>
-<td style="text-align:center">分时调度策略</td>
-</tr>
-<tr>
-<td>SCHED_FIFO</td>
-<td style="text-align:center">实时调度策略，先到先服务</td>
-</tr>
-<tr>
-<td>SCHED_RR</td>
-<td style="text-align:center">实时调度策略，时间片轮转</td>
-</tr>
-</tbody>
-</table>
-<p><em>关于 SHCED_RR 和 SCHED_FIFO 区别</em>  </p>
-<ul>
-<li>当采用SHCED_RR策略的进程的时间片用完，系统将重新分配时间片,并置于就绪队列尾  </li>
-<li>SCHED_FIFO一旦占用cpu则一直运行,一直运行直到有更高优先级任务到达或自己放弃</li>
-</ul>
-<ul>
-<li><p><em>关于param参数</em></p>
-<pre><code>struct sched_param {
-    int sched_priority;
-};
-sched_priority //对应区间 ［1， 99］
-</code></pre></li>
 </ul>
 <h2 id="0x01__u4F7F_u7528_u5B9E_u4F8B"><a href="#0x01__u4F7F_u7528_u5B9E_u4F8B" class="headerlink" title="0x01 使用实例"></a><strong>0x01</strong> 使用实例</h2><ul>
-<li><p>实例说明：  </p>
-<pre><code>创建的内核线程每隔一秒做一次打印
-
-struct task_struct *test_task;  
-
-int test_func(void *arg)
-{
-    uint64_t cur = 0;
-    uint64_t last = 0;
-
-    while(!kthread_should_stop())
-    {
-        cur = get_cycle();
-        if (cur - last &gt; 2410000000)
-        {
-            printk(KERN_INFO &quot;this time: %llu\n&quot;, cur);
-            last = cur;
-        }
-    }
-    return 0;
-}
-
-void run_thread(void)
-{
-    struct sched_param param = {.sched_priority = 1};
-
-    test_task = kthread_create(&amp;test_func, NULL, &quot;MY_test&quot;);
-    kthread_bind(test_task, 0);
-    sched_setscheduler(test_task, SCHED_FIFO, &amp;param);
-    wake_up_process(test_task);
-
-    printk(KERN_INFO&quot;OK, Kernel Thread : %s, Running\n&quot;, test_task-&gt;comm);
-}
-
-static int __init test_init(void)
-{
-    run_thread();
-    return 0;
-}
-
-static void __exit test_exit(void)
-{
-    kthread_stop(test_task);
-}
-
-module_init(test_init);
-module_exit(test_exit);
+<li>实例说明：  <pre><code>创建的内核线程每隔一秒做一次打印
 </code></pre></li>
 </ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> task_struct *test_task;  </span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">test_func</span><span class="params">(<span class="keyword">void</span> *arg)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">  		<span class="keyword">uint64_t</span> cur = <span class="number">0</span>;</span><br><span class="line">  		<span class="keyword">uint64_t</span> last = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">  		<span class="keyword">while</span>(!kthread_should_stop())</span><br><span class="line">  		&#123;</span><br><span class="line">      		cur = get_cycle();</span><br><span class="line">      		<span class="keyword">if</span> (cur - last &gt; <span class="number">2410000000</span>)</span><br><span class="line">      		&#123;</span><br><span class="line">          		printk(KERN_INFO <span class="string">"this time: %llu\n"</span>, cur);</span><br><span class="line">          		last = cur;</span><br><span class="line">      		&#125;</span><br><span class="line">  		&#125;</span><br><span class="line">  		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">run_thread</span><span class="params">(<span class="keyword">void</span>)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">  		<span class="keyword">struct</span> sched_param param = &#123;.sched_priority = <span class="number">1</span>&#125;;</span><br><span class="line"></span><br><span class="line">  		test_task = kthread_create(&amp;test_func, <span class="literal">NULL</span>, <span class="string">"MY_test"</span>);</span><br><span class="line">  		kthread_bind(test_task, <span class="number">0</span>);</span><br><span class="line">  		sched_setscheduler(test_task, SCHED_FIFO, &amp;param);</span><br><span class="line">  		wake_up_process(test_task);</span><br><span class="line">  		</span><br><span class="line">  		printk(KERN_INFO<span class="string">"OK, Kernel Thread : %s, Running\n"</span>, test_task-&gt;comm);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">int</span> __<span class="function">init <span class="title">test_init</span><span class="params">(<span class="keyword">void</span>)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    run_thread();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">void</span> __<span class="function"><span class="built_in">exit</span> <span class="title">test_exit</span><span class="params">(<span class="keyword">void</span>)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    kthread_stop(test_task);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">module_init(test_init);</span><br><span class="line">module_exit(test_exit);</span><br></pre></td></tr></table></figure>
 ]]></content>
     <summary type="html">
-    <![CDATA[<h2 id="0x00_Kernel_API"><a href="#0x00_Kernel_API" class="headerlink" title="0x00 Kernel API"></a><strong>0x00</strong> Kernel API</h2><h3 id="u4F7F_u7528_u5230_u7684_u5934_u6587_u4EF6"><a href="#u4F7F_u7528_u5230_u7684_u5934_u6587_u4EF6" class="headerlink" title="使用到的头文件"></a>使用到的头文件</h3><pre><code>#include &lt;linux/sched.h&gt;
-#include &lt;linux/kthread.h&gt;
-</code></pre>]]>
+    <![CDATA[<h2 id="0x00_Kernel_API"><a href="#0x00_Kernel_API" class="headerlink" title="0x00 Kernel API"></a><strong>0x00</strong> Kernel API</h2><h3 id="u4F7F_u7528_u5230_u7684_u5934_u6587_u4EF6"><a href="#u4F7F_u7528_u5230_u7684_u5934_u6587_u4EF6" class="headerlink" title="使用到的头文件"></a>使用到的头文件</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;linux/sched.h&gt;</span></span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;linux/kthread.h&gt;</span></span></span><br></pre></td></tr></table></figure>]]>
     
     </summary>
     
